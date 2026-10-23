@@ -9,6 +9,14 @@
         "blood-pact": {
           "": "Pacto de Sangre",
           "hint": "Sufres %game.damage:1% al inicio de cada uno de tus turnos."
+        },
+        "careless-charge": {
+          "": "Carga temeraria",
+          "hint": "Eres inmune a todos los estados negativos."
+        },
+        "unbridled-power": {
+          "": "Poder desatado",
+          "hint": "Puedes curarte por encima de tu máximo hasta un máximo de 26 puntos de vida, pero tu valor máximo de puntos de vida sigue siendo el mismo a efectos de todas las habilidades."
         }
       },
       "music-note": {
@@ -28,16 +36,845 @@
   },
   "custom": {
     "gh": {
+      "angry-face": {
+        "abilities": {
+          "376": {
+            "1": "Las próximas cuatro veces que muera un enemigo %data.custom.gh.angry-face.doomed%, realiza una acción de \"%game.action.attack:2%, %game.action.range:5%\".",
+            "2": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "3": "Añade %game.action.attack.valueSign:2% a todos tus ataques que tengan como objetivo a este enemigo.",
+            "4": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "377": {
+            "1": "Crea una trampa de 4 de daño y %game.condition.stun% en un hexágono vacío adyacente.",
+            "2": "Obtén %game.card.experience:2% cuando un enemigo active la trampa.",
+            "3": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "4": "Los valores de %game.action.attack%, %game.action.move% y %game.action.range% de este enemigo se reducen en 1.",
+            "5": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "378": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Cuando este enemigo muera, realiza %game.action.teleport% al hexágono que ocupaba el enemigo.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "379": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Cuando este enemigo muera, realiza una acción de \"%game.action.heal:4%, a ti mismo\".",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "380": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Este enemigo sufre 2 de daño al inicio de cada uno de sus turnos.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "381": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Todos los aliados añaden %game.action.attack.valueSign:1% a todos sus ataques que tengan como objetivo a este enemigo.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "382": {
+            "1": "Crea una trampa de 3 de daño en un hexágono vacío adyacente.",
+            "2": "Todos los enemigos adyacentes a esta trampa sufren 2 de daño cuando se active la trampa.",
+            "3": "Obtén %game.card.experience:2% cuando un enemigo active la trampa.",
+            "4": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "5": "Cuando este enemigo muera, todos los enemigos adyacentes al hexágono en el que murió sufren 3 de daño.",
+            "6": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "383": {
+            "1": "Las próximas tres veces que un enemigo %data.custom.gh.angry-face.doomed% muera a %game.action.range:2% de otro enemigo, transfiere una %data.custom.gh.angry-face.doom% a ese enemigo en lugar de descartarla.",
+            "2": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "3": "Cuando este enemigo muera, obliga a todos los enemigos adyacentes al hexágono en el que murió a realizar una acción de \"%game.action.move:1%\" controlada por ti.",
+            "4": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "384": {
+            "1": "Crea una trampa de 2 de daño y %game.condition.immobilize% en un hexágono vacío adyacente."
+          },
+          "387": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si el objetivo está %data.custom.gh.angry-face.doomed%."
+          },
+          "388": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Cada vez que este enemigo sufra daño, realiza una acción de \"%game.action.heal:2%, a ti mismo\".",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "389": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Todos los aliados invocados añaden %game.action.attack.valueSign:2% a todos sus ataques que tengan como objetivo a este enemigo.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "390": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si el objetivo no ha sufrido daño."
+          },
+          "391": {
+            "1": "Obtienes Ventaja en un ataque por turno que tenga como objetivo a un enemigo %data.custom.gh.angry-face.doomed%.",
+            "2": "Todos los enemigos pierden %game.condition.invisible% y ya no pueden obtener %game.condition.invisible%.",
+            "3": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "4": "Tú y todos los aliados obtenéis %game.action.pierce:2% en todos vuestros ataques que tengan como objetivo a este enemigo.",
+            "5": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "392": {
+            "1": "Añade %game.action.attack.valueSign:2% a todos tus ataques que tengan como objetivo a enemigos %data.custom.gh.angry-face.doomed% esta ronda."
+          },
+          "393": {
+            "1": "Elige como objetivo a todos los enemigos a %game.action.range:3%. Obtén %game.card.experience:1% por cada dos enemigos objetivo.",
+            "2": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "3": "Cuando este enemigo muera, realiza una acción de \"%game.action.attack:2%, %game.action.range:3%, %game.action.target:3%\".",
+            "4": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "394": {
+            "1": "Añade %game.action.attack.valueSign:3% y obtén %game.card.experience:1% si el objetivo está %data.custom.gh.angry-face.doomed%."
+          },
+          "395": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Tú y todos los aliados obtenéis Ventaja en todos vuestros ataques que tengan como objetivo a este enemigo.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "396": {
+            "1": "Crea una trampa de 2 de daño y %game.condition.wound% en un hexágono vacío adyacente.",
+            "2": "Inflige %game.condition.wound% a todos los enemigos adyacentes a esta trampa cuando se active la trampa."
+          },
+          "397": {
+            "1": "Puedes tener dos %data.custom.gh.angry-face.dooms% activas sobre el mismo objetivo.",
+            "2": "Si se juega una tercera %data.custom.gh.angry-face.doom% sobre el mismo objetivo, descarta una de las otras,",
+            "3": "o si se juega una tercera %data.custom.gh.angry-face.doom% sobre un objetivo diferente, descarta las otras dos.",
+            "4": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo normal o élite.",
+            "5": "Al inicio de tus próximos tres turnos, avanza el marcador de esta carta. Después de que avance tres veces, mata al objetivo y descarta la carta.",
+            "6": "Descarta esta carta si se juega otra %data.custom.gh.angry-face.doom%."
+          },
+          "398": {
+            "1": "Un aliado invocado adyacente realiza",
+            "2": "controlado por ti.",
+            "3": "Elige como objetivo a un enemigo %data.custom.gh.angry-face.doomed% a cualquier alcance."
+          },
+          "399": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Cuando este enemigo muera, tú y todos los aliados realizáis una acción de \"%game.action.heal:2%, a sí mismo\".",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "401": {
+            "1": "Mata al objetivo y obtén %game.card.experience:1% si su valor de puntos de vida es menor o igual a 2 después del ataque.",
+            "2": "Añade %game.action.attack.valueSign:3% a todos tus ataques que tengan como objetivo a enemigos %data.custom.gh.angry-face.doomed% esta ronda."
+          },
+          "402": {
+            "1": "Obtén %game.card.experience:1% por cada enemigo objetivo.",
+            "2": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "3": "Tú y todos los aliados obtenéis %game.condition.curse% en todos vuestros ataques que tengan como objetivo a este enemigo.",
+            "4": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "403": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Si este enemigo muere a %game.action.range:2% de otro enemigo, transfiere esta y cualquier otra %data.custom.gh.angry-face.dooms% a ese enemigo en lugar de descartarlas.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "405": {
+            "1": "%data.custom.gh.angry-face.doom%: Coloca tu token de personaje sobre cualquier enemigo.",
+            "2": "Tú y todos los aliados añadís +X %game.action.attack% a todos vuestros ataques que tengan como objetivo a este enemigo, donde X es la diferencia entre el alcance del ataque y el número de hexágonos hasta el enemigo.",
+            "3": "Cuando este enemigo muera o se juegue otra %data.custom.gh.angry-face.doom%, descarta esta carta."
+          },
+          "406": {
+            "1": "Obliga al objetivo a moverse hasta tres hexágonos directamente hacia el hexágono más cercano adyacente a uno de tus aliados.",
+            "2": "Transfiere todas las %data.custom.gh.angry-face.dooms% activas de su objetivo actual a un enemigo a %game.action.range:4% de ti."
+          }
+        },
+        "doom": "%data.characterColored.angry-face:Doom%%game.characterIconColoredBg.angry-face%",
+        "doomed": "%data.characterColored.angry-face:Doomed%%game.characterIconColoredBg.angry-face%",
+        "dooms": "%data.characterColored.angry-face:Dooms%%game.characterIconColoredBg.angry-face%"
+      },
       "circles": {
         "1": "cuando realice un %game.action.attack%",
-        "2": "al final del turno"
+        "2": "al final del turno",
+        "abilities": {
+          "233": {
+            "1": "Afecta a ti mismo y a todos los aliados invocados."
+          },
+          "235": {
+            "1": "Todos los ataques que tengan como objetivo a ti o a cualquiera de tus aliados invocados obtienen Desventaja esta ronda."
+          },
+          "236": {
+            "1": "Recupera %game.card.recover% hasta cuatro de tus cartas perdidas."
+          },
+          "237": {
+            "1": "Obliga a un enemigo a %game.action.range:4% a realizar",
+            "2": "controlado por ti"
+          },
+          "238": {
+            "1": "Un aliado invocado adyacente realiza",
+            "2": "controlado por ti."
+          },
+          "239": {
+            "1": "Un aliado invocado adyacente realiza",
+            "2": "controlado por ti."
+          },
+          "242": {
+            "1": "Afecta a todos los aliados adyacentes"
+          },
+          "243": {
+            "1": "Al morir:"
+          },
+          "244": {
+            "1": "Afecta a todos los aliados invocados adyacentes"
+          },
+          "245": {
+            "1": "En cualquiera de tus acciones de Movimiento, o en las acciones de Movimiento de cualquier aliado que hayas invocado, puedes %game.element.consume.earth% para añadir %game.action.move.valueSign:2% y obtener %game.card.experience:1%."
+          },
+          "247": {
+            "1": "Mata a todos los enemigos normales adyacentes cuyo valor actual de puntos de vida sea igual o inferior a 5."
+          },
+          "250": {
+            "1": "Dos aliados invocados a %game.action.range:2% realizan",
+            "2": "controlados por ti."
+          },
+          "251": {
+            "1": "Un aliado invocado adyacente realiza",
+            "2": "controlado por ti.",
+            "3": "donde X es el número total de aliados invocados."
+          },
+          "252": {
+            "1": "Realiza",
+            "2": "al final del turno"
+          },
+          "253": {
+            "1": "Afecta a todos los aliados invocados"
+          },
+          "254": {
+            "1": "Un aliado invocado adyacente realiza"
+          },
+          "255": {
+            "1": "Elige como objetivo a todos los enemigos adyacentes a cualquier aliado invocado"
+          },
+          "257": {
+            "1": "Las próximas tres veces que los aliados invocados vayan a sufrir daño, no sufren daño en su lugar.",
+            "2": "Retira todas las cartas de %game.condition.curse% del mazo de modificadores de ataque y, a continuación, baraja la pila de descartes de nuevo en el mazo."
+          },
+          "258": {
+            "1": "Un aliado invocado a %game.action.range:3% realiza",
+            "2": "controlado por ti.",
+            "3": "Realiza %game.action.teleport% al hexágono ocupado por cualquier aliado invocado y, simultáneamente, realiza %game.action.teleport% de ese aliado invocado al hexágono que ocupas tú."
+          },
+          "259": {
+            "1": "Recupera %game.card.recover% hasta dos de tus cartas perdidas."
+          },
+          "260": {
+            "1": "Todos los aliados invocados a %game.action.range:3% realizan",
+            "2": "controlados por ti."
+          }
+        }
+      },
+      "eclipse": {
+        "abilities": {
+          "261": {
+            "1": "Durante tus próximas cuatro acciones de Ataque mientras estés %game.condition.invisible%, realiza un \"%game.action.attack: 2%, %game.action.range: 3%\" como parte final de la acción."
+          },
+          "263": {
+            "1": "Duplica el valor de todas tus habilidades de %game.action.move% jugadas durante el resto de este turno, %game.card.experience:1%.",
+            "2": "Duplica el valor de todas tus habilidades de %game.action.attack% jugadas durante el resto de este turno, %game.card.experience:1%."
+          },
+          "266": {
+            "1": "Mata a un objetivo normal en su lugar, %game.card.experience:1%."
+          },
+          "267": {
+            "1": "Todos los ataques que te tengan como objetivo obtienen Desventaja esta ronda."
+          },
+          "268": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si estás %game.condition.invisible%."
+          },
+          "270": {
+            "1": "Antes de tus próximas cuatro acciones de Ataque, realiza una acción de \"%game.action.move: 2%\"."
+          },
+          "271": {
+            "1": "Realiza %game.action.teleport% a cualquier hexágono desocupado en su lugar."
+          },
+          "274": {
+            "1": "Añade %game.condition.stun% y obtén %game.card.experience:1% si estás %game.condition.invisible%."
+          },
+          "275": {
+            "1": "Todos los ataques que te tengan como objetivo obtienen Desventaja esta ronda."
+          },
+          "277": {
+            "1": "Al final de tus próximos tres turnos en los que %game.element.dark% no esté Fuerte, genera %game.element.dark%."
+          },
+          "278": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si estás %game.condition.invisible%."
+          },
+          "279": {
+            "1": "%game.action.attack.valueSign:1%, %game.element.dark%, %game.card.experience:1%.",
+            "2": "Durante tus próximas cuatro acciones de Movimiento mientras estés %game.condition.invisible%, realiza un \"%game.action.attack: 2%, con todos los enemigos adyacentes como objetivo\" como parte final de la acción."
+          },
+          "282": {
+            "1": "Mata a un objetivo normal o élite en su lugar, %game.card.experience:1%."
+          },
+          "283": {
+            "1": "Obtén Ventaja en todos tus ataques.",
+            "2": "Puedes elegir como objetivo a enemigos %game.condition.invisible%."
+          },
+          "284": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si estás %game.condition.invisible%."
+          },
+          "286": {
+            "1": "Añade %game.condition.poison%, %game.condition.muddle%, %game.condition.wound% y obtén %game.card.experience:1% si estás %game.condition.invisible%."
+          },
+          "287": {
+            "1": "Mata a todos los objetivos normales en su lugar, %game.card.experience:2%.",
+            "2": "Mata a un enemigo normal adyacente, %game.card.experience:1%."
+          },
+          "288": {
+            "1": "En tus próximos cinco ataques mientras estés %game.condition.invisible%, añade %game.condition.stun% al ataque."
+          }
+        }
+      },
+      "lightning": {
+        "abilities": {
+          "319": {
+            "1": "donde X es la diferencia entre tu valor máximo de puntos de vida y tu valor actual de puntos de vida.",
+            "2": "Obtén %game.card.experience:1% por cada %game.damage:5% infligido."
+          },
+          "320": {
+            "1": "donde X es el número de cartas que has perdido.",
+            "2": "Si tienes menos puntos de vida que la mitad de tu valor máximo de puntos de vida (redondeando hacia arriba), realiza",
+            "3": "y obtén %game.card.experience:1%"
+          },
+          "321": {
+            "1": "Puedes sufrir %game.damage:2% para añadir %game.action.attack.valueSign:2% y obtener %game.card.experience:1%.",
+            "2": "Puedes sufrir hasta %game.damage:3%.",
+            "3": "donde X es la cantidad de daño que has sufrido."
+          },
+          "322": {
+            "1": "Añade %game.action.attack.valueSign:2% y obtén %game.card.experience:1% si tu valor actual de puntos de vida es inferior a la mitad de tu valor máximo de puntos de vida (redondeando hacia arriba).",
+            "2": "En las próximas tres fuentes de daño que te reducirían a menos de 1 punto de vida, no sufres daño en su lugar."
+          },
+          "323": {
+            "1": "donde X es la diferencia entre tu valor máximo de puntos de vida y tu valor actual de puntos de vida."
+          },
+          "324": {
+            "1": "Sufre un daño igual a la mitad de tu valor actual de puntos de vida (redondeando hacia arriba).",
+            "2": "Añade %game.action.attack.valueSign:1% a todos tus ataques.",
+            "3": "Sufre %game.damage:1% al inicio de cada uno de tus turnos."
+          },
+          "325": {
+            "1": "Las próximas cuatro veces que te curen, añade %game.action.heal.valueSign:2%."
+          },
+          "326": {
+            "1": "Puedes sufrir %game.damage:2% para añadir %game.condition.stun% y obtener %game.card.experience:1%."
+          },
+          "329": {
+            "1": "Puedes curarte por encima de tu máximo hasta un máximo de 26 puntos de vida, pero tu valor máximo de puntos de vida sigue siendo el mismo a efectos de todas las habilidades."
+          },
+          "330": {
+            "1": "Donde X es tu valor actual de puntos de vida.",
+            "2": "Obtén %game.card.experience:1% por cada %game.damage:5% infligido.",
+            "3": "Reduce tu valor actual de puntos de vida a 1.<br>Esto no se considera daño."
+          },
+          "331": {
+            "1": "Puedes sufrir %game.damage:2% para obtener %game.action.shield:1%, %game.card.experience:1%.",
+            "2": "Puedes sufrir %game.damage:2% para infligir %game.condition.stun% a un enemigo adyacente."
+          },
+          "332": {
+            "1": "Puedes sufrir hasta %game.damage:3%.",
+            "2": "donde X es la cantidad de daño que has sufrido.",
+            "3": "Todos los ataques cuerpo a cuerpo que te tengan como objetivo añaden %game.action.attack.valueSign:1%."
+          },
+          "333": {
+            "1": "Añade %game.action.move.valueSign:2% si tienes menos puntos de vida que la mitad de tu valor máximo de puntos de vida (redondeando hacia arriba)."
+          },
+          "334": {
+            "1": "Aumenta en 2 el valor de cada una de tus habilidades de %game.action.retaliate% esta ronda."
+          },
+          "335": {
+            "1": "Mata a un enemigo normal adyacente cuyo valor actual de puntos de vida sea inferior a la mitad de la diferencia entre tu valor máximo de puntos de vida y tu valor actual de puntos de vida."
+          },
+          "336": {
+            "1": "Puedes sufrir hasta %game.damage:4%.",
+            "2": "donde X es la cantidad de daño que has sufrido."
+          },
+          "337": {
+            "1": "Obtén Ventaja en todos tus ataques esta ronda.",
+            "2": "Todos los ataques que te tengan como objetivo obtienen Desventaja esta ronda."
+          },
+          "338": {
+            "1": "Obtén %game.action.shield:1%, %game.card.experience:1% si tienes menos puntos de vida que la mitad de tu valor máximo de puntos de vida (redondeando hacia arriba).",
+            "2": "Añade %game.action.attack.valueSign:1% a todos tus ataques cuando tengas menos puntos de vida que la mitad de tu valor máximo de puntos de vida (redondeando hacia arriba)."
+          },
+          "339": {
+            "1": "Mata a un enemigo normal o élite adyacente.",
+            "2": "Quedas agotado inmediatamente.",
+            "3": "donde X es el número de cartas que has perdido."
+          },
+          "341": {
+            "1": "Puedes sufrir %game.damage:2% para ignorar el valor de Escudo del objetivo y obtener %game.card.experience:1%.",
+            "2": "Si realizas un descanso corto al final de esta ronda, obtén todos los beneficios de un descanso largo."
+          },
+          "342": {
+            "1": "Elige como objetivo a todos los enemigos que estén a dos hexágonos o menos en su lugar"
+          },
+          "343": {
+            "1": "Inflígete %game.condition.wound% a ti mismo y a todos los aliados adyacentes para añadir %game.action.push:2%, %game.condition.immobilize%.",
+            "2": "Eres inmune a todos los estados negativos."
+          },
+          "344": {
+            "1": "El objetivo ya no puede volar.",
+            "2": "Para indicarlo, coloca un token de personaje sobre el objetivo."
+          },
+          "345": {
+            "1": "En las próximas cinco fuentes de daño que recibas, realiza una acción de \"%game.action.attack:3%\".",
+            "2": "Añade %game.action.attack.valueSign:1% a todos tus ataques esta ronda, %game.card.experience:1%."
+          },
+          "346": {
+            "1": "En las próximas cinco fuentes de daño que recibas, no sufres daño en su lugar."
+          },
+          "347": {
+            "1": "Realiza una acción de \"%game.action.heal:2%, a ti mismo\" por cada enemigo dañado.",
+            "2": "Puedes sufrir hasta %game.damage:5%.",
+            "3": "donde X es la cantidad de daño que has sufrido."
+          }
+        }
+      },
+      "music-note": {
+        "abilities": {
+          "348": {
+            "1": "Todos los aliados añaden %game.action.attack.valueSign:1% a uno de sus ataques cada turno."
+          },
+          "349": {
+            "1": "La próxima vez que cualquier aliado a %game.action.range:2% vaya a sufrir daño esta ronda, no sufre daño en su lugar."
+          },
+          "350": {
+            "1": "Todos los aliados añaden %game.action.move.valueSign:1% a todas sus acciones de Movimiento, y añaden %game.action.range.valueSign:1% a todos sus ataques a distancia."
+          },
+          "352": {
+            "1": "Un aliado a %game.action.range:3% puede realizar"
+          },
+          "354": {
+            "1": "Obliga a todos los enemigos del<br>área objetivo a realizar una<br>acción de \"%game.action.move:1%\"<br>controlada por ti."
+          },
+          "356": {
+            "1": "Un aliado a %game.action.range:3% puede realizar"
+          },
+          "357": {
+            "1": "Todos los aliados añaden %game.condition.wound% a todos sus ataques."
+          },
+          "358": {
+            "1": "Las próximas cinco veces que inflijas %game.condition.curse% a un enemigo, inflígele %game.condition.curse% una vez adicional."
+          },
+          "360": {
+            "1": "Todos los aliados pueden realizar una acción de \"%game.action.heal:1%, a sí mismo\" al inicio de cada uno de sus turnos."
+          },
+          "362": {
+            "1": "Todos los aliados obtienen %game.action.retaliate:2%, %game.action.range:2%."
+          },
+          "364": {
+            "1": "Todos los enemigos obtienen Desventaja en todos sus ataques."
+          },
+          "365": {
+            "1": "Cualquier aliado puede realizar"
+          },
+          "366": {
+            "1": "Puedes tener dos %data.custom.gh.music-note.songs% activas a la vez, pero solo obtienes experiencia de una.",
+            "2": "Si se juega una tercera %data.custom.gh.music-note.song%, descarta una de las otras."
+          },
+          "367": {
+            "1": "Todos los aliados pueden realizar una acción de \"%game.action.move:1%\" antes de cualquiera de sus acciones de Ataque."
+          },
+          "368": {
+            "1": "Al inicio de cada uno de tus turnos, puedes obligar a un enemigo a %game.action.range:5% a realizar una acción de \"%game.action.move:2%\" controlada por ti.",
+            "2": "Obliga a un enemigo a %game.action.range:5% a realizar",
+            "3": "contra otro enemigo, controlado por ti."
+          },
+          "370": {
+            "1": "Al inicio de cada uno de tus turnos, inflige %game.condition.curse% a un enemigo a %game.action.range:5%"
+          },
+          "371": {
+            "1": "Todos los aliados a %game.action.range:3% pueden realizar"
+          },
+          "372": {
+            "1": "Todos los aliados pueden realizar una acción de \"%game.action.heal:2%, a sí mismo\" al inicio de cada uno de sus turnos."
+          },
+          "373": {
+            "1": "Un aliado a %game.action.range:3% puede realizar",
+            "2": "Obliga a todos los enemigos del<br>área objetivo a realizar una<br>acción de \"%game.action.move:2%\"<br>controlada por ti."
+          },
+          "374": {
+            "1": "Todos los aliados añaden %game.action.attack.valueSign:1% a todos sus ataques."
+          },
+          "375": {
+            "1": "Obliga a todos los enemigos atravesados<br>a realizar una acción de \"%game.action.attack:3%\"<br>contra otro enemigo,<br>controlada por ti.",
+            "2": "Dos aliados a %game.action.range:3% pueden realizar"
+          }
+        },
+        "another": "Cuando se juegue otra %data.custom.gh.music-note.song%,<br>descarta esta carta.",
+        "song": "%data.characterColored.music-note:Song% %game.characterIconColoredBg.music-note%",
+        "songs": "%data.characterColored.music-note:Songs% %game.characterIconColoredBg.music-note%",
+        "xp": "Obtén %game.card.experience:1% al inicio de cada uno de tus turnos."
+      },
+      "saw": {
+        "abilities": {
+          "407": {
+            "1": "Da a un aliado adyacente una carta de habilidad \"Botiquín\"."
+          },
+          "408": {
+            "1": "Todas tus acciones de Curación de esta ronda te afectan a ti y a todos los aliados adyacentes."
+          },
+          "409": {
+            "1": "Todos tus ataques cuerpo a cuerpo de esta ronda tienen como objetivo a todos los enemigos adyacentes."
+          },
+          "410": {
+            "1": "Coloca esta carta en el área activa de un aliado adyacente y trátala como si fuera suya."
+          },
+          "412": {
+            "1": "Elimina todos los estados negativos de la figura curada.",
+            "2": "Elimina todos los estados negativos de un aliado adyacente."
+          },
+          "413": {
+            "1": "Coloca esta carta en el área activa de un aliado adyacente y, al final de la ronda, ponla en tu pila de descartes."
+          },
+          "414": {
+            "1": "Da a un aliado adyacente una carta de habilidad \"Botiquín grande\".",
+            "2": "Tú y todos los aliados sois inmunes a todos los estados negativos esta ronda."
+          },
+          "415": {
+            "1": "Una vez durante cada uno de tus próximos cuatro turnos, realiza una acción de \"%game.action.heal:2%, %game.action.range:1%\"."
+          },
+          "416": {
+            "1": "Al inicio de cada uno de tus turnos, elimina un estado negativo de cualquiera de tus aliados."
+          },
+          "417": {
+            "1": "Esta carta no se puede perder para evitar sufrir daño. Cuando esta carta se descarte por cualquier motivo, devuélvela a la reserva del Matasanos."
+          },
+          "429": {
+            "1": "Tú y todos los aliados adyacentes podéis Recuperar %game.card.recover% un número de cartas descartadas igual, como máximo, al número de aliados adyacentes a ti.",
+            "2": "Todos los aliados adyacentes pueden realizar una acción de \"%game.action.move:2%\"."
+          },
+          "430": {
+            "1": "Eres inmune a todos los estados negativos."
+          },
+          "432": {
+            "1": "Da a un aliado adyacente una carta de habilidad \"Botiquín\"."
+          },
+          "433": {
+            "1": "Al inicio de cada uno de tus turnos, realiza una acción de \"%game.action.heal:1%, a ti mismo\"."
+          },
+          "436": {
+            "1": "Mata a un enemigo normal o élite adyacente.",
+            "2": "%game.condition.disarm% e %game.condition.immobilize%"
+          },
+          "437": {
+            "1": "Elimina todos los estados negativos de todos los aliados adyacentes.",
+            "2": "Eres inmune a todos los estados negativos."
+          },
+          "439": {
+            "1": "Mata a un enemigo normal adyacente que tenga al menos dos tokens de estados negativos."
+          },
+          "440": {
+            "1": "Da a todos los aliados adyacentes una carta de habilidad \"Botiquín\".",
+            "2": "Da a todos los aliados adyacentes una carta de habilidad \"Botiquín grande\"."
+          },
+          "441": {
+            "1": "Antes de tus próximas seis acciones de Curación, elimina todos los estados negativos de la figura o figuras curadas.",
+            "2": "Añade %game.action.heal.valueSign:4% a todas tus acciones de Curación esta ronda."
+          },
+          "442": {
+            "1": "Da a un aliado adyacente una carta de habilidad \"Botiquín\"."
+          },
+          "443": {
+            "1": "Elimina todos los estados negativos de la figura curada y dale una carta de habilidad \"Botiquín grande\".",
+            "2": "Un aliado adyacente puede Recuperar %game.card.recover% hasta dos de sus cartas descartadas."
+          },
+          "445": {
+            "1": "Todas tus habilidades de %game.action.attack% y %game.action.move% pueden realizarse como habilidades de %game.action.heal% de igual valor más uno.",
+            "2": "En esos casos, ignora todos los estados aplicados por las habilidades de %game.action.attack%."
+          },
+          "446": {
+            "1": "Mata a todos los enemigos<br>normales o élite del área<br>objetivo que tengan 10<br>o más de daño.",
+            "2": "%game.condition.poison%, %game.condition.wound% y %game.condition.muddle%"
+          }
+        }
+      },
+      "squidface": {
+        "abilities": {
+          "289": {
+            "1": "Inflige %game.condition.poison% a todos los aliados y enemigos del área objetivo."
+          },
+          "290": {
+            "1": "Resta %game.action.range.valueSign:-1% a todos tus ataques a distancia."
+          },
+          "292": {
+            "1": "Una vez durante cada una de tus acciones de Ataque, puedes infligir %game.condition.poison% a un aliado a %game.action.range:2% (o infligirle %game.damage:3% si el aliado ya tiene %game.condition.poison%) para añadir %game.action.attack.valueSign:1% a la acción de Ataque entera."
+          },
+          "294": {
+            "1": "Obtén %game.action.fly%"
+          },
+          "298": {
+            "1": "Durante tus próximas seis acciones de Ataque en las que %game.element.air% esté Fuerte o Menguante, puedes %game.element.consume.air% para añadir %game.action.attack.valueSign:1% a la acción de Ataque entera."
+          },
+          "299": {
+            "1": "Todos los ataques que te tengan como objetivo obtienen Desventaja esta ronda."
+          },
+          "300": {
+            "1": "Después de cada una de tus acciones de Movimiento, inflige %game.condition.poison% a todos los aliados y enemigos adyacentes."
+          },
+          "301": {
+            "1": "Retira %game.condition.poison% de cualquier enemigo para hacer que sufra %game.damage:3%.",
+            "2": "Elige como objetivo a todos los enemigos adyacentes a cualquier enemigo con %game.condition.poison%"
+          },
+          "304": {
+            "1": "Inflige %game.condition.poison% a todos los aliados adyacentes al objetivo."
+          },
+          "305": {
+            "1": "Mata a un enemigo normal con %game.condition.poison% a %game.action.range:3%.",
+            "2": "Afecta a todos los aliados con %game.condition.poison%"
+          },
+          "307": {
+            "1": "Además, elige como objetivo a todos los enemigos que haya en el camino hacia el objetivo principal"
+          },
+          "309": {
+            "1": "Todos los enemigos con %game.condition.poison% sufren %game.damage:1%.",
+            "2": "%game.damage:2% en su lugar"
+          },
+          "310": {
+            "1": "Una vez durante cada una de tus acciones de Movimiento, puedes sufrir %game.damage:1% para infligir %game.damage:3% a cualquier enemigo con %game.condition.poison%.",
+            "2": "Todos los aliados con %game.condition.poison% pueden Recuperar %game.card.recover% hasta dos de sus cartas descartadas.",
+            "3": "Hasta tres cartas descartadas en su lugar"
+          },
+          "314": {
+            "1": "Si %game.condition.curse% hace que un enemigo no inflija daño durante su ataque, ese enemigo sufre %game.damage:3%."
+          },
+          "316": {
+            "1": "Durante tus próximas seis acciones de Ataque, inflige %game.condition.curse% a un aliado a %game.action.range:2% para obtener dos efectos de %game.action.target%.",
+            "2": "Duplica el valor de tu próxima acción de Ataque de esta ronda."
+          },
+          "317": {
+            "1": "Todos los enemigos con %game.condition.poison% sufren %game.damage:2%.",
+            "2": "Sufren 1 de daño adicional"
+          },
+          "318": {
+            "1": "Todos los aliados con %game.condition.poison% sufren %game.damage:2%.",
+            "2": "Por cada dos aliados dañados, añade %game.action.attack.valueSign:1% a todos tus ataques esta ronda y obtén %game.card.experience:1%."
+          }
+        }
+      },
+      "sun": {
+        "abilities": {
+          "175": {
+            "1": "En los próximos cinco ataques cuerpo a cuerpo que te tengan como objetivo, obtén %game.action.retaliate:2%"
+          },
+          "177": {
+            "1": "Un aliado adyacente puede Recuperar %game.card.recover% una de sus cartas perdidas."
+          },
+          "178": {
+            "1": "Un aliado adyacente puede Recuperar %game.card.recover% hasta dos de sus cartas descartadas.",
+            "2": "Hasta tres cartas descartadas en su lugar, %game.card.experience:1%.",
+            "3": "Un aliado adyacente puede realizar"
+          },
+          "179": {
+            "1": "Tú y todos los aliados adyacentes no sufrís daño esta ronda."
+          },
+          "181": {
+            "1": "Un aliado a %game.action.range:3% puede realizar"
+          },
+          "184": {
+            "1": "Resta %game.action.move.valueSign:-1% a todos tus movimientos."
+          },
+          "185": {
+            "1": "Cura todo el daño de un aliado adyacente.",
+            "2": "Sufre %game.damage:3%."
+          },
+          "187": {
+            "1": "Al final de tus próximos cinco turnos en los que %game.element.light% no esté Fuerte, genera %game.element.light%"
+          },
+          "190": {
+            "1": "Un aliado adyacente puede realizar inmediatamente un turno adicional jugando dos cartas de su mano."
+          },
+          "191": {
+            "1": "Obtén %game.card.experience:1% por cada enemigo objetivo."
+          },
+          "192": {
+            "1": "Todos los aliados a %game.action.range:5% pueden realizar"
+          },
+          "194": {
+            "1": "Todos los ataques que te tengan como objetivo a ti o a cualquier aliado a %game.action.range:4% de ti obtienen Desventaja esta ronda."
+          },
+          "195": {
+            "1": "Afecta a todos los aliados atravesados"
+          },
+          "196": {
+            "1": "Resta %game.action.attack.valueSign:-1% a todos tus ataques."
+          },
+          "197": {
+            "1": "Todos los aliados añaden %game.action.attack.valueSign:1% a todos sus ataques esta ronda.",
+            "2": "Todos los aliados añaden %game.action.move.valueSign:2% a todos sus movimientos esta ronda."
+          },
+          "198": {
+            "1": "Un aliado adyacente puede realizar"
+          },
+          "199": {
+            "1": "Durante cualquiera de tus acciones de %game.action.attack%, puedes %game.element.consume.light% para añadir %game.action.attack.valueSign:2%, obtener %game.custom.advantage% y %game.card.experience:1%"
+          },
+          "200": {
+            "1": "Un aliado adyacente puede Recuperar %game.card.recover% una de sus cartas perdidas.",
+            "2": "Hasta dos cartas perdidas en su lugar"
+          },
+          "202": {
+            "1": "Un aliado adyacente puede realizar",
+            "2": "Mata a un objetivo normal o élite del ataque en su lugar, %game.card.experience:1%.",
+            "3": "Todos los aliados a %game.action.range:3% pueden realizar",
+            "4": "Obtén %game.card.experience:1% por cada ataque realizado."
+          },
+          "203": {
+            "1": "En tus próximas cuatro acciones de %game.action.attack%, añade %game.action.attack.valueSign:3%, %game.condition.wound% y obtén %game.custom.advantage%."
+          },
+          "204": {
+            "1": "Cuando cualquier aliado vaya a sufrir daño, puedes sufrir tú ese daño reducido en 1 en su lugar."
+          }
+        }
+      },
+      "three-spears": {
+        "abilities": {
+          "205": {
+            "1": "Todos los aliados a %game.action.range:2% Renuevan %game.card.refresh% uno de sus objetos gastados o consumidos."
+          },
+          "206": {
+            "1": "Renueva %game.card.refresh% todos tus objetos %game.items.slots.small% consumidos."
+          },
+          "207": {
+            "1": "Tú y todos los aliados a %game.action.range:2% añadís %game.action.attack.valueSign:1% a todos vuestros ataques esta ronda."
+          },
+          "208": {
+            "1": "Una vez durante cada una de tus acciones de Ataque, si usas un objeto, añade %game.action.attack.valueSign:1% a la acción de Ataque entera."
+          },
+          "215": {
+            "1": "Renueva %game.card.refresh% uno de tus objetos %game.items.slots.small% consumidos."
+          },
+          "216": {
+            "1": "Un aliado adyacente puede Renovar %game.card.refresh% todos sus objetos gastados."
+          },
+          "217": {
+            "1": "Tú o un aliado adyacente podéis Renovar %game.card.refresh% uno de vuestros objetos %game.items.slots.twohand% o %game.items.slots.onehand% gastados o consumidos.",
+            "2": "Recupera %game.card.recover% hasta dos de tus cartas descartadas."
+          },
+          "219": {
+            "1": "Al final de cada uno de tus turnos, puedes descartar una carta para permitir que un aliado adyacente Renueve %game.card.refresh% uno de sus objetos %game.items.slots.small% consumidos.",
+            "2": "Recupera %game.card.recover% hasta dos de tus cartas perdidas."
+          },
+          "221": {
+            "1": "Un aliado adyacente puede Renovar %game.card.refresh% todos sus objetos gastados y consumidos."
+          },
+          "223": {
+            "1": "Al final de cada ronda, Renueva %game.card.refresh% uno de tus objetos gastados."
+          },
+          "224": {
+            "1": "Tú y todos los enemigos a %game.action.range:4% sufrís %game.damage:2%."
+          },
+          "225": {
+            "1": "Tú y todos los enemigos normales del área objetivo sufrís %game.damage:7%."
+          },
+          "226": {
+            "1": "Si cualquier aliado adyacente realiza un ataque a distancia, ese aliado obtiene AÑADIR OBJETIVO %game.action.target% para el ataque."
+          },
+          "228": {
+            "1": "Cada vez que realices un descanso largo, Renueva %game.card.refresh% uno de tus objetos consumidos.",
+            "2": "Cualquier aliado puede Recuperar %game.card.recover% todas sus cartas descartadas."
+          },
+          "229": {
+            "1": "Durante todos tus ataques de esta ronda, ignora los valores de Escudo de todos tus objetivos."
+          },
+          "230": {
+            "1": "Al final de tus próximos cinco turnos, realiza una acción de \"%game.action.heal:2%, afecta a todos los aliados adyacentes\"."
+          },
+          "231": {
+            "1": "Mata a un enemigo normal o élite adyacente."
+          },
+          "232": {
+            "1": "Tú y todos los aliados adyacentes podéis Renovar %game.card.refresh% todos vuestros objetos %game.items.slots.small% consumidos."
+          }
+        }
       },
       "triangles": {
         "1": "Puedes realizar acciones de Ataque como si ocuparas el hexágono de la invocación.",
-        "2": "cuando se realice %game.action.attack%"
+        "2": "cuando se realice %game.action.attack%",
+        "abilities": {
+          "449": {
+            "1": "Una vez durante cada una de tus acciones de Ataque, puedes %game.element.wild:minus% para añadir %game.action.attack.valueSign:1% a la acción de Ataque entera."
+          },
+          "450": {
+            "1": "Al final de cada uno de tus turnos, puedes generar %game.element.wild%.",
+            "2": "Resta %game.action.attack.valueSign:-1% a todos tus ataques."
+          },
+          "459": {
+            "1": "Todos los ataques que te tengan como objetivo obtienen Desventaja esta ronda."
+          },
+          "463": {
+            "1": "%game.action.attack:X%-1 contra un nuevo enemigo a %game.action.range:2% del primer objetivo; después, %game.action.attack:X%-2 contra un tercer enemigo a %game.action.range:2% del segundo objetivo.",
+            "2": "%game.action.attack:X%-3 contra un cuarto enemigo a %game.action.range:2% del tercer objetivo, %game.card.experience:1%"
+          },
+          "467": {
+            "1": "%game.action.range.valueSign:2%, %game.action.pierce:4%, %game.card.experience:1%"
+          },
+          "468": {
+            "1": "Elige como objetivo a todos los enemigos a %game.action.range:2% de la figura curada"
+          },
+          "469": {
+            "1": "Puedes realizar acciones de Ataque como si ocuparas el hexágono de la invocación."
+          },
+          "470": {
+            "1": "Mata a todos los objetivos normales en su lugar, %game.card.experience:1%"
+          },
+          "471": {
+            "1": "La figura curada puede Recuperar %game.card.recover% una de sus cartas descartadas."
+          },
+          "472": {
+            "1": "Una vez por acción, si consumes un elemento durante la acción, puedes hacer que un enemigo a %game.action.range:2% sufra %game.damage:1% o puedes realizar una acción de \"%game.action.heal:1%, %game.action.range:2%\".",
+            "2": "%game.action.move.valueSign:2%, inflige %game.condition.wound%<br>a todos los enemigos atravesados, %game.card.experience:1%",
+            "3": "%game.action.move.valueSign:2%, inflige %game.condition.immobilize%<br>a todos los enemigos atravesados, %game.card.experience:1%"
+          },
+          "474": {
+            "1": "Realiza cualquiera de las siguientes habilidades:"
+          }
+        }
       },
       "two-mini": {
-        "1": "Todos los aliados adyacentes añaden %game.action.attack.valueSign:2% a todos sus ataques."
+        "1": "Todos los aliados adyacentes añaden %game.action.attack.valueSign:2% a todos sus ataques.",
+        "abilities": {
+          "477": {
+            "1": "Realiza %game.action.teleport% de cualquier figura a un hexágono ocupado por otra figura y, simultáneamente, realiza %game.action.teleport% de esa figura al hexágono que ocupaba la primera."
+          },
+          "478": {
+            "1": "Realiza %game.action.teleport% de cualquier enemigo a un hexágono ocupado por otro enemigo y, simultáneamente, realiza %game.action.teleport% de ese enemigo al hexágono que ocupaba el primero."
+          },
+          "481": {
+            "1": "Antes de que actúe tu oso, puedes renunciar a la acción superior de tu turno para añadir %game.action.attack.valueSign:3% a todos los ataques de tu oso esta ronda.",
+            "2": "Antes de que actúe tu oso, puedes renunciar a la acción inferior de tu turno para añadir %game.action.move.valueSign:3% a todos los movimientos de tu oso esta ronda"
+          },
+          "483": {
+            "1": "Afecta a todos los aliados invocados"
+          },
+          "489": {
+            "1": "Redistribuye como quieras todo el daño recibido por ti y por todos los aliados invocados.",
+            "2": "Ninguna figura puede terminar con más daño que su valor máximo de puntos de vida."
+          },
+          "495": {
+            "1": "Añade %game.action.attack.valueSign:1% a todas tus %data.custom.gh.two-mini.commands% esta ronda."
+          },
+          "496": {
+            "1": "Cualquier aliado invocado realiza",
+            "2": "controlado por ti."
+          },
+          "498": {
+            "1": "Realiza %game.action.teleport% al hexágono ocupado por tu oso y, simultáneamente, realiza %game.action.teleport% de tu oso al hexágono que ocupas tú."
+          },
+          "499": {
+            "1": "Después de los próximos cinco ataques de tu oso, este realiza una acción de \"%game.action.heal:2%, a sí mismo\"."
+          },
+          "501": {
+            "1": "Todos los aliados invocados a %game.action.range:3% realizan",
+            "2": "controlados por ti."
+          },
+          "504": {
+            "1": "Mata a un enemigo normal adyacente cuyo valor actual de puntos de vida sea igual o inferior a 6."
+          },
+          "505": {
+            "1": "Todos los aliados adyacentes añaden %game.action.attack.valueSign:2% a todos sus ataques",
+            "2": "Recupera %game.card.recover% hasta dos de tus cartas perdidas que tengan acciones de Invocar."
+          }
+        },
+        "command": "Orden %game.characterIconColoredBg.two-mini%",
+        "commands": "Órdenes %game.characterIconColoredBg.two-mini%"
       }
     }
   },
@@ -334,13 +1171,81 @@
       "": "Cristal resonante",
       "1": "Durante tu turno, destruye un obstáculo adyacente."
     },
+    "gh-134": {
+      "": "Hoja imponente",
+      "1": "Siempre que mates a un enemigo durante tu turno, obtén %game.action.shield:1% durante el resto de la ronda."
+    },
+    "gh-135": {
+      "": "Rayo concentrador",
+      "1": "Durante tu acción de Curación, duplica el valor de la Curación."
+    },
+    "gh-136": {
+      "": "Elixir volátil",
+      "1": "Durante tu ataque a distancia, añade %game.action.attack.valueSign:2% y obtén Ventaja en la acción de ataque entera, pero sufre 2 de daño por cada ataque realizado."
+    },
+    "gh-137": {
+      "": "Estilete silencioso",
+      "1": "Siempre que realices un ataque cuerpo a cuerpo, añade %game.action.pierce:1% al ataque."
+    },
+    "gh-138": {
+      "": "Amuleto de piedra",
+      "1": "Durante tu acción en la que se cree un obstáculo, crea un obstáculo adicional y aplícale todos los efectos de la acción."
+    },
+    "gh-139": {
+      "": "Cuchillo psíquico",
+      "1": "Siempre que realices una acción de %data.characterColored.mindthief:Augment%, añade %game.action.attack.valueSign:1% a la acción entera."
+    },
     "gh-14": {
       "": "Poción de poder menor",
       "1": "Durante tu ataque, añade %game.action.attack.valueSign:1% a tu acción de ataque entera."
     },
+    "gh-140": {
+      "": "Escudo solar",
+      "1": "Cuando un ataque te inflija daño, puedes %game.element.consume.light% para obtener %game.action.shield:3% contra ese ataque."
+    },
+    "gh-141": {
+      "": "Cinturón de utilidades",
+      "1": "Durante tu turno, tú o cualquier aliado podéis Renovar %game.card.refresh% uno de vuestros objetos gastados o consumidos."
+    },
+    "gh-142": {
+      "": "Ídolo de desfase",
+      "1": "Cuando un ataque inflija daño a una de tus invocaciones, esta no sufre daño en su lugar."
+    },
+    "gh-143": {
+      "": "Elixir de humo",
+      "1": "Durante tu turno, obtén %game.condition.invisible% y crea<br>%game.element.dark%"
+    },
+    "gh-144": {
+      "": "Colgante de la plaga",
+      "1": "Durante tu turno, inflige %game.condition.poison% y %game.condition.curse% a un enemigo a %game.action.range:3%."
+    },
+    "gh-145": {
+      "": "Máscara de la muerte",
+      "1": "Siempre que realices un ataque cuerpo a cuerpo y tengas exactamente 1 punto de vida, añade %game.action.attack.valueSign:2% al ataque."
+    },
+    "gh-146": {
+      "": "Laúd del maestro",
+      "1": "Después de realizar cualquier acción de %data.characterColored.music-note:Song%, realiza inmediatamente una acción de %game.action.attack:2% o %game.action.move:2%."
+    },
+    "gh-147": {
+      "": "Capa del cazador",
+      "1": "Siempre que realices una acción de %data.characterColored.angry-face:Doom%, inflige %game.condition.muddle% al objetivo de la %data.characterColored.angry-face:Doom%."
+    },
+    "gh-148": {
+      "": "Bata del doctor",
+      "1": "Siempre que un aliado realice una acción de Botiquín o Botiquín grande, añade %game.action.heal.valueSign:1% a su Curación."
+    },
+    "gh-149": {
+      "": "Botas elementales",
+      "1": "Si te mueves 5 hexágonos o más en tu turno, crea cualquier elemento."
+    },
     "gh-15": {
       "": "Botas de velocidad",
       "1": "Al comienzo de una ronda, después de que se hayan revelado todas las cartas de Capacidad, aumenta o disminuye el valor de iniciativa de tu carta principal en 10."
+    },
+    "gh-150": {
+      "": "Báculo de mando",
+      "1": "Después de realizar una acción de %data.characterColored.two-mini:Command%, juega una carta de tu mano y realiza inmediatamente la misma mitad de la carta (superior o inferior) que la acción de %data.characterColored.two-mini:Command%."
     },
     "gh-16": {
       "": "Capa de bolsillos",
@@ -710,12 +1615,51 @@
     "gh-99": {
       "": "Botas de magma",
       "1": "Ignora los efectos de daño del terreno peligroso y realiza una acción de \"%game.action.heal:2%, Self\" en cualquier turno en el que hayas entrado en un hexágono de terreno peligroso."
+    },
+    "gh-envx-151": {
+      "": "Espada de las arenas"
     }
   },
   "summon": {
     "bat-swarm": "Túnica de invocación",
+    "battle-boar": "Jabalí de batalla",
+    "battle-bot": "Robot de batalla",
+    "black-unicorn": "Unicornio negro",
+    "burning-avatar": "Avatar ardiente",
+    "decoy": "Señuelo",
+    "doppelganger": "Doppelganger",
+    "giant-toad": "Sapo gigante",
+    "green-adder": "Víbora verde",
+    "healing-sprite": "Duendecillo sanador",
+    "iron-beast": "Bestia de hierro",
     "jade-falcon": "Halcón de jade",
-    "lava-golem": "Golem de Lava"
+    "kill-bot": "Robot asesino",
+    "lava-golem": "Golem de Lava",
+    "living-bomb": "Bomba viviente",
+    "mana-sphere": "Esfera de maná",
+    "monolith": "Monolito",
+    "monstrous-rat": "Rata monstruosa",
+    "mystic-ally": "Aliado místico",
+    "nail-sphere": "Esfera de clavos",
+    "rat-king": "Rey rata",
+    "rat-swarm": "Enjambre de ratas",
+    "red-falcon": "Halcón rojo",
+    "rock-colossus": "Coloso de roca",
+    "shadow-wolf": "Lobo de sombra",
+    "skeleton": "Esqueleto",
+    "slime-spirit": "Espíritu de limo",
+    "spirit-banner": "Estandarte espiritual",
+    "spitting-cobra": "Cobra escupidora",
+    "steel-construct": "Constructo de acero",
+    "swamp-alligator": "Caimán del pantano",
+    "tattered-wolf": "Lobo andrajoso",
+    "thorn-shooter": "Lanzaespinas",
+    "two-mini": "Oso",
+    "vicious-jackal": "Chacal feroz",
+    "void-eater": "Devorador del vacío",
+    "war-hawk": "Halcón de guerra",
+    "warrior-spirit": "Espíritu guerrero",
+    "wind-totem": "Tótem de viento"
   },
   "treasures": {
     "gh": {

@@ -26,7 +26,8 @@
           "/assets/**",
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)",
           "!/assets/artwork/**",
-          "!/assets/data/**"
+          "!/assets/data/**",
+          "!/assets/rules/**"
         ]
       }
     }

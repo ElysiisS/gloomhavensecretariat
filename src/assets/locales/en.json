@@ -1453,6 +1453,7 @@
     }
   },
   "help": "Help",
+  "rules": "Rules (PDF)",
   "hints": {
     "active": "Take turns",
     "active-full": "Take turns, click each figure image",

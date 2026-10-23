@@ -149,6 +149,11 @@
         <div class="line">
           <a tabclick (click)="setActive(SubMenu.about)"><span [ghs-label]="'about'"></span></a>
         </div>
+        @if (rulesAvailable()) {
+          <div class="line">
+            <a [href]="rulesUrl" target="_blank"><span [ghs-label]="'rules'"></span></a>
+          </div>
+        }
         @if (branded) {
           <div class="line">
             <a href="https://help.gloomhaven-secretariat.de" target="_blank"><span [ghs-label]="'help'"></span></a>

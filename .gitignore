@@ -72,3 +72,6 @@ GEMINI.md
 .continue/
 .codeium/
 .github/copilot-instructions.md
+
+# local rulebook PDFs (copyrighted, never commit)
+/src/assets/rules/*.pdf

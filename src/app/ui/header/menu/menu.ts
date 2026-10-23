@@ -1,6 +1,6 @@
 import { Dialog, DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { NgClass, SlicePipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { GameManager, gameManager } from 'src/app/game/businesslogic/GameManager';
@@ -79,6 +79,9 @@ export class MainMenuComponent implements OnInit {
   undoOffset: number = 0;
   redoInfo: string[] = [];
   isUpdateAvailable: boolean = false;
+  // local rulebook PDF, not part of the repository (see src/assets/rules/README.md)
+  rulesUrl = './assets/rules/rules-' + settingsManager.settings.locale + '.pdf';
+  rulesAvailable = signal(false);
 
   data: { subMenu: SubMenu; standalone: boolean } = inject(DIALOG_DATA);
 
@@ -94,6 +97,9 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.update();
+    fetch(this.rulesUrl, { method: 'HEAD' })
+      .then((response) => this.rulesAvailable.set(response.ok && (response.headers.get('content-type') || '').includes('pdf')))
+      .catch(() => this.rulesAvailable.set(false));
   }
 
   close() {
