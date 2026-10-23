@@ -1471,37 +1471,7 @@
       "on": "Turn on guide mode"
     },
     "minimize": "Minimize",
-    "now": {
-      "allExhausted": "If every character becomes exhausted, the scenario is lost.",
-      "attackHint": "When attacking: add bonuses first (e.g. +1 against a poisoned target), draw one card from your attack modifier deck per target, apply it and subtract the target's Shield.",
-      "characterModifierShuffle": "{0} drew a ×2 or a Null: their attack modifier deck is shuffled with its discards at the end of the round.",
-      "characterTurn": "<b>{0}</b>'s turn.",
-      "chooseCards": "Each player secretly picks two cards from their hand and decides which one leads: its number is the character's initiative. You may talk about plans, but not about exact numbers or cards.",
-      "elements": "Elements available to consume now: {0}. If an action asks to consume one of them, you get its bonus and the element becomes inert.",
-      "endTurn": "When done, tap the figure to end its turn and move on to the next one.",
-      "endTurnCharacter": "At the end of your turn, pick up any money or treasure in your hex. Then tap the figure to end the turn.",
-      "exhausted": "Exhausted: {0}. An exhausted character removes their figure and takes no further part in this scenario, but keeps the experience and gold already earned.",
-      "firstRound": "First round: each player draws two battle goals and secretly keeps one. Also read the scenario's special rules.",
-      "longRest": "Long rest: choose one card from your discard pile and lose it, return the rest to your hand, heal 2 and refresh your spent items. You do nothing else this turn.",
-      "longRestOption": "If you cannot play two cards, or want your cards back, declare a <b>long rest</b>: your initiative is 99.",
-      "missingInitiative": "Initiative missing for: <b>{0}</b>. Tap each character's initiative field and enter the number of their leading card, or mark a long rest.",
-      "monsterAttack": "For each monster attack, draw a card from the monster attack modifier deck (shared by all monsters). Base damage is its stat (normal or elite) plus whatever the ability card adds.",
-      "monsterFocus": "Each monster first <b>focuses</b>: the enemy it can attack with the least movement. On a tie, the closest one; if still tied, the one with the lowest initiative. Then it moves just enough to attack it.",
-      "monsterModifierShuffle": "A ×2 or Null came out of the monster attack modifier deck: it is shuffled with its discards at the end of the round.",
-      "monsterOrder": "They act one by one: elites first, then normals, each group in ascending standee number.",
-      "monsterShuffle": "Its ability card shows the shuffle symbol: this monster's deck is shuffled at the end of the round.",
-      "monsterTurn": "<b>{0}</b>'s turn. Every monster of this type performs the actions on its revealed ability card.",
-      "nextRound": "Press \"%round.next%\" to start the next round and choose cards again.",
-      "noCharacters": "Start by adding the players' characters from the main menu.",
-      "noScenario": "Choose the scenario in the main menu so the app sets up its monsters, or add monsters manually.",
-      "otherTurn": "It is an objective's or ally's turn: resolve it as the scenario says and tap the figure to end its turn.",
-      "playCards": "Play your two cards in any order: use the <b>top action</b> of one and the <b>bottom action</b> of the other. Instead, you may use a basic action: Attack 2 with a top half or Move 2 with a bottom half.",
-      "readyToDraw": "All initiatives are set. Press \"%round.draw%\" to reveal the monster cards and start the turns.",
-      "roundEnd": "Every figure has acted: it is the end of the round. Elements drop one level (strong to waning, waning to inert); the app does it when you advance the round.",
-      "scenarioEnd": "The scenario is over. Note your experience (plus the scenario bonus if you won), convert money tokens to gold based on the level, check your battle goal and recover all your cards and items.",
-      "shortRest": "Anyone with at least two cards in their discard pile may take a <b>short rest</b>: shuffle the discards, lose one at random and return the rest. If they dislike the lost card, they can suffer 1 damage to lose another random one instead.",
-      "summons": "Your summons act at the start of your turn, before you, using monster rules: they focus, move and attack. They do not act in the round they appear."
-    },
+    "next": "Next",
     "phase": {
       "cardSelection": {
         "": "1. Card selection",
@@ -1518,12 +1488,47 @@
         "text": "Pressing \"%round.draw%\" reveals the players' cards and draws one ability card per monster type; its number is that group's initiative. Figures act from lowest to highest initiative. If two characters tie, their second card decides; if a character and a monster tie, the character goes first. The app orders the figures: tap each one when its turn is over."
       }
     },
+    "previous": "Back",
+    "reference": {
+      "": "Show phases and rules",
+      "hide": "Hide phases and rules"
+    },
     "round": {
-      "": "Round {0}",
       "intro": "Every round follows the same steps. Tap one to see what to do; the current step is highlighted."
     },
+    "step": {
+      "addCharacters": "Welcome! First add each player's character: tap here and pick your classes.",
+      "allExhausted": "Every character is exhausted: the scenario is lost. Finish it from the scenario menu.",
+      "characterAttack": "If you attack, draw one modifier per target; you can draw it here. Add your bonuses to the attack, apply the modifier and subtract the target's Shield.",
+      "characterModifierShuffle": "{0} drew a ×2 or a Null: their modifier deck is shuffled with its discards.",
+      "characterTurn": "It is <b>{0}</b>'s turn (initiative {1}). The acting figure is highlighted and the list is ordered by initiative.",
+      "chooseCards": "The round begins: each player looks at their hand and secretly picks <b>two cards</b>. One of them leads: the number in the middle of that card is your initiative. The lower, the sooner you act.",
+      "chooseScenario": "Open the menu here and tap \"Select Scenario\" to pick the mission. The app will set up its monsters.",
+      "damageCharacter": "Subtract the damage from the attacked character by tapping their figure to adjust their hit points. They may avoid the damage by losing one card from hand or two from the discard pile.",
+      "damageMonster": "To damage a monster, tap its standee here: you can lower its hit points and add conditions. At 0 it dies.",
+      "draw": "Everyone has an initiative. Press <b>\"%round.draw%\"</b>: the monster cards are revealed and the app orders everyone by initiative.",
+      "elementsInfuse": "If your card creates an element, tap it up here to mark it. If it asks you to consume an active one, tap it to spend it and apply the bonus.",
+      "elementsWane": "Active elements drop one level: from strong to waning and from waning to inert. The app does it when you advance the round.",
+      "endCharacterTurn": "When done, pick up the money or treasure in your hex. Then tap here to end <b>{0}</b>'s turn and move on to the next figure.",
+      "endMonsterTurn": "When every <b>{0}</b> has acted, tap its portrait here to end its turn.",
+      "firstRound": "Before the first round, each player draws two battle goals and secretly keeps one. Also read the scenario's special rules in the Scenario Book.",
+      "initiative": "<b>{0}</b>: tap here and enter the initiative of your leading card. If you cannot play two cards, or want them back, choose a long rest.",
+      "longRest": "<b>{0}</b> rests: lose one card of your choice from your discard pile, return the rest, heal 2 and refresh your spent items. You do nothing else this turn.",
+      "monsterAttack": "For each attack, tap here to draw a card from the monster modifier deck and apply it to the attack.",
+      "monsterFocus": "Each one picks a target: the enemy it can reach with the least movement (on a tie, the closest; if still tied, the lowest initiative). It moves just enough to attack it.",
+      "monsterModifierShuffle": "A ×2 or Null came out of the monster deck: it will be shuffled with its discards when the round advances.",
+      "monsterOrder": "These are its standees. Move the <b>elites</b> (gold) first and then the normals, each group in ascending number.",
+      "monsterShuffle": "This card shows the shuffle symbol: this monster's deck will be shuffled at the end of the round. The app does it for you.",
+      "monsterTurn": "It is <b>{0}</b>'s turn. This is its ability card for this round: every monster of this type performs these actions, adding the numbers to its stats.",
+      "nextRound": "Press <b>\"%round.next%\"</b> to start the next round and pick cards again.",
+      "otherTurn": "It is an objective's or ally's turn. Resolve it as the scenario says and tap it to end its turn.",
+      "playCards": "Play your two cards in any order: the <b>top action</b> of one and the <b>bottom action</b> of the other. If they do not suit you, you may use Attack 2 (top) or Move 2 (bottom). Move your figure on the board.",
+      "roundEnd": "Every figure has acted: it is the <b>end of the round</b>. Check what happens before moving on.",
+      "scenarioEnd": "The scenario is over. Note your experience (plus the scenario bonus if you won), convert money tokens to gold based on the level, check your battle goal and recover all your cards and items.",
+      "shortRest": "Anyone with two or more discarded cards may take a <b>short rest</b>: shuffle the discards, lose one at random and return the rest. If they dislike the lost card, they can suffer 1 damage to lose another random one instead.",
+      "summons": "Your summons, shown here, act first. They follow monster rules: they pick a target, move and attack on their own."
+    },
     "tab": {
-      "now": "Now",
       "round": "The round",
       "rules": "Rules"
     },
@@ -1584,7 +1589,8 @@
         "": "Your turn",
         "text": "Play your two cards in any order: the top action of one and the bottom action of the other. The parts of each action are done in printed order and you may skip any you like. Items can be used at any point during your turn. Actions with the experience symbol grant those points when used."
       }
-    }
+    },
+    "waiting": "Do it in the app to continue"
   },
   "help": "Help",
   "rules": "Rules (PDF)",

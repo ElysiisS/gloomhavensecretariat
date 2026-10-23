@@ -1471,37 +1471,7 @@
       "on": "Activar modo guía"
     },
     "minimize": "Minimizar",
-    "now": {
-      "allExhausted": "Si todos los personajes quedan agotados, el escenario se pierde.",
-      "attackHint": "Al atacar: suma primero los bonus (por ejemplo +1 si el objetivo está envenenado), roba una carta de tu mazo de modificadores por cada objetivo, aplícala y resta el Escudo del objetivo.",
-      "characterModifierShuffle": "{0} ha robado un ×2 o un Nulo: su mazo de modificadores se baraja con los descartes al final de la ronda.",
-      "characterTurn": "Turno de <b>{0}</b>.",
-      "chooseCards": "Cada jugador elige en secreto dos cartas de su mano y decide cuál es la inicial: su número marca la iniciativa del personaje. Podéis hablar de planes, pero sin decir números ni cartas concretas.",
-      "elements": "Elementos que se pueden consumir ahora: {0}. Si una acción pide consumir uno de ellos, obtienes su bonus y el elemento pasa a inerte.",
-      "endTurn": "Cuando termine, toca la figura para cerrar su turno y pasar a la siguiente.",
-      "endTurnCharacter": "Al acabar tu turno recoges el dinero o tesoro del hexágono en el que estés. Después toca la figura para cerrar el turno.",
-      "exhausted": "Agotados: {0}. Un personaje agotado retira su figura y no vuelve a participar en este escenario, aunque conserva la experiencia y el oro que haya conseguido.",
-      "firstRound": "Primera ronda: cada jugador roba dos objetivos de batalla y se queda con uno en secreto. Leed también las reglas especiales del escenario.",
-      "longRest": "Descanso largo: elige una carta de tu pila de descartes y piérdela, recupera el resto en tu mano, cúrate 2 y renueva tus objetos gastados. Este turno no haces nada más.",
-      "longRestOption": "Si no puedes jugar dos cartas, o quieres recuperar cartas, declara un <b>descanso largo</b>: tu iniciativa será 99.",
-      "missingInitiative": "Falta la iniciativa de: <b>{0}</b>. Toca la casilla de iniciativa de cada personaje y escribe el número de su carta inicial, o marca el descanso largo.",
-      "monsterAttack": "En cada ataque de monstruo roba una carta del mazo de modificadores de los monstruos (lo comparten todos). El daño base sale de su estadística (normal o élite) más lo que indique la carta de habilidad.",
-      "monsterFocus": "Cada monstruo primero <b>fija objetivo</b>: el enemigo al que puede atacar con menos movimiento. Si hay empate, el más cercano; si sigue empatado, el de menor iniciativa. Luego se mueve lo justo para atacarlo.",
-      "monsterModifierShuffle": "Del mazo de modificadores de los monstruos ha salido un ×2 o un Nulo: se baraja con sus descartes al final de la ronda.",
-      "monsterOrder": "Actúan de uno en uno: primero los de élite y después los normales, cada grupo por el número de su standee de menor a mayor.",
-      "monsterShuffle": "Su carta de habilidad tiene el símbolo de barajar: al final de la ronda se baraja el mazo de este monstruo.",
-      "monsterTurn": "Turno de <b>{0}</b>. Todos los monstruos de este tipo hacen las acciones de su carta de habilidad revelada.",
-      "nextRound": "Pulsa \"%round.next%\" para empezar la siguiente ronda y volver a elegir cartas.",
-      "noCharacters": "Empieza añadiendo los personajes de los jugadores desde el menú principal.",
-      "noScenario": "Elige el escenario en el menú principal para que la app coloque sus monstruos, o añade los monstruos a mano.",
-      "otherTurn": "Es el turno de un objetivo o aliado: resuélvelo como diga el escenario y toca la figura para cerrar su turno.",
-      "playCards": "Juega tus dos cartas en el orden que quieras: de una usas la <b>acción superior</b> y de la otra la <b>acción inferior</b>. En su lugar puedes usar una acción básica: Atacar 2 con la mitad superior o Mover 2 con la inferior.",
-      "readyToDraw": "Todas las iniciativas están listas. Pulsa \"%round.draw%\" para revelar las cartas de los monstruos y empezar los turnos.",
-      "roundEnd": "Todas las figuras han actuado: es el final de ronda. Los elementos bajan un nivel (fuerte a menguante, menguante a inerte); la app lo hace al pasar de ronda.",
-      "scenarioEnd": "El escenario ha terminado. Apunta la experiencia (más el bonus del escenario si ganasteis), cambia las fichas de dinero por oro según el nivel, comprueba tu objetivo de batalla y recupera todas tus cartas y objetos.",
-      "shortRest": "Quien tenga al menos dos cartas en descartes puede hacer un <b>descanso corto</b>: baraja sus descartes, pierde una al azar y recupera el resto. Si no le gusta la perdida, puede sufrir 1 de daño para perder otra al azar.",
-      "summons": "Tus invocaciones actúan al empezar tu turno, antes que tú, con las reglas de los monstruos: fijan objetivo, se mueven y atacan. No actúan la ronda en que aparecen."
-    },
+    "next": "Siguiente",
     "phase": {
       "cardSelection": {
         "": "1. Selección de cartas",
@@ -1518,12 +1488,47 @@
         "text": "Al pulsar \"%round.draw%\" se revelan las cartas de los jugadores y se roba una carta de habilidad por cada tipo de monstruo; su número es la iniciativa de ese grupo. Se actúa de menor a mayor iniciativa. Si empatan dos personajes, decide su segunda carta; si empatan un personaje y un monstruo, va antes el personaje. La app ordena las figuras: toca cada una al terminar su turno."
       }
     },
+    "previous": "Anterior",
+    "reference": {
+      "": "Ver fases y reglas",
+      "hide": "Ocultar fases y reglas"
+    },
     "round": {
-      "": "Ronda {0}",
       "intro": "Todas las rondas siguen los mismos pasos. Toca uno para ver qué hay que hacer; el paso actual aparece resaltado."
     },
+    "step": {
+      "addCharacters": "¡Bienvenido! Primero añade el personaje de cada jugador: pulsa aquí y elige vuestras clases.",
+      "allExhausted": "Todos los personajes están agotados: el escenario se ha perdido. Termínalo desde el menú de escenario.",
+      "characterAttack": "Si atacas, roba un modificador por cada objetivo; puedes robarlo aquí. Suma tus bonus al ataque, aplica el modificador y resta el Escudo del objetivo.",
+      "characterModifierShuffle": "{0} robó un ×2 o un Nulo: su mazo de modificadores se baraja con sus descartes.",
+      "characterTurn": "Le toca a <b>{0}</b> (iniciativa {1}). La figura que actúa aparece resaltada y la lista está ordenada por iniciativa.",
+      "chooseCards": "Empieza la ronda: cada jugador mira su mano y elige en secreto <b>dos cartas</b>. Una será la <b>inicial</b>: el número del centro de esa carta es tu iniciativa. Cuanto más bajo, antes actúas.",
+      "chooseScenario": "Abre el menú desde aquí y pulsa \"Seleccionar Escenario\" para elegir la misión. La app colocará sus monstruos.",
+      "damageCharacter": "Resta el daño al personaje atacado tocando su figura para ajustar su vida. Puede evitar el daño perdiendo una carta de la mano o dos de descartes.",
+      "damageMonster": "Para quitar vida a un monstruo, toca su standee aquí: puedes restarle vida y ponerle estados. Si llega a 0, muere.",
+      "draw": "Todos tienen iniciativa. Pulsa <b>\"%round.draw%\"</b>: se revelan las cartas de los monstruos y la app ordena a todos por iniciativa.",
+      "elementsInfuse": "Si tu carta crea un elemento, tócalo aquí arriba para marcarlo. Si te pide consumir uno que está activo, tócalo para gastarlo y aplica el bonus.",
+      "elementsWane": "Los elementos activos bajan un nivel: de fuerte a menguante y de menguante a inerte. La app lo hace sola al pasar de ronda.",
+      "endCharacterTurn": "Al acabar, recoge el dinero o tesoro de tu casilla. Luego toca aquí para terminar el turno de <b>{0}</b> y pasar a la siguiente figura.",
+      "endMonsterTurn": "Cuando todos los <b>{0}</b> hayan actuado, toca su retrato aquí para terminar su turno.",
+      "firstRound": "Antes de la primera ronda, cada jugador roba dos objetivos de batalla y se queda uno en secreto. Leed también las reglas especiales del escenario en el Libro de Escenarios.",
+      "initiative": "<b>{0}</b>: toca aquí y escribe la iniciativa de tu carta inicial. Si no puedes jugar dos cartas, o quieres recuperarlas, elige el descanso largo.",
+      "longRest": "<b>{0}</b> descansa: pierde una carta de tus descartes a tu elección, recupera el resto, cúrate 2 y renueva tus objetos gastados. Este turno no haces nada más.",
+      "monsterAttack": "En cada ataque, toca aquí para robar un modificador del mazo de los monstruos y aplícalo al ataque.",
+      "monsterFocus": "Cada uno elige objetivo: el enemigo al que llegue con menos movimiento (si empatan, el más cercano; si siguen empatados, el de menor iniciativa). Se mueve lo justo para atacarlo.",
+      "monsterModifierShuffle": "Del mazo de los monstruos salió un ×2 o un Nulo: se barajará con sus descartes al pasar de ronda.",
+      "monsterOrder": "Estos son sus standees. Mueve primero los de <b>élite</b> (dorados) y después los normales, cada grupo por número de menor a mayor.",
+      "monsterShuffle": "Esta carta tiene el símbolo de barajar: al final de la ronda se barajará el mazo de este monstruo. La app lo hace sola.",
+      "monsterTurn": "Le toca a <b>{0}</b>. Esta es su carta de habilidad de esta ronda: todos los de este tipo hacen estas acciones, sumando los números a sus estadísticas.",
+      "nextRound": "Pulsa <b>\"%round.next%\"</b> para empezar la siguiente ronda y volver a elegir cartas.",
+      "otherTurn": "Le toca a un objetivo o aliado. Resuélvelo como diga el escenario y tócalo para terminar su turno.",
+      "playCards": "Juega tus dos cartas en el orden que quieras: la <b>acción de arriba</b> de una y la <b>acción de abajo</b> de la otra. Si no te convienen, puedes usar Atacar 2 (arriba) o Mover 2 (abajo). Mueve tu figura en el tablero.",
+      "roundEnd": "Todas las figuras han actuado: es el <b>final de ronda</b>. Mira lo que toca antes de pasar a la siguiente.",
+      "scenarioEnd": "El escenario ha terminado. Apunta la experiencia (más el bonus del escenario si ganasteis), cambia las fichas de dinero por oro según el nivel, comprueba tu objetivo de batalla y recupera todas tus cartas y objetos.",
+      "shortRest": "Quien tenga dos o más cartas en descartes puede hacer un <b>descanso corto</b>: baraja sus descartes, pierde una al azar y recupera las demás. Si no le gusta la perdida, puede sufrir 1 de daño para perder otra al azar.",
+      "summons": "Primero actúan tus invocaciones, que están aquí. Siguen las reglas de los monstruos: eligen objetivo, se mueven y atacan solas."
+    },
     "tab": {
-      "now": "Ahora",
       "round": "La ronda",
       "rules": "Reglas"
     },
@@ -1584,7 +1589,8 @@
         "": "Tu turno",
         "text": "Juegas tus dos cartas en el orden que quieras: la acción superior de una y la inferior de la otra. Las partes de cada acción se hacen en el orden impreso y puedes saltarte las que no quieras. Puedes usar objetos en cualquier momento de tu turno. Las acciones con el símbolo de experiencia te dan esos puntos al usarlas."
       }
-    }
+    },
+    "waiting": "Hazlo en la app para continuar"
   },
   "help": "Ayuda",
   "rules": "Reglas (PDF)",

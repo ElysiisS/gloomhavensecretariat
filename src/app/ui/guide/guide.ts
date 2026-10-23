@@ -1,18 +1,22 @@
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { GameManager, gameManager } from 'src/app/game/businesslogic/GameManager';
 import { GhsManager } from 'src/app/game/businesslogic/GhsManager';
 import { SettingsManager, settingsManager } from 'src/app/game/businesslogic/SettingsManager';
 import { Character } from 'src/app/game/model/Character';
 import { ConditionName, EntityCondition } from 'src/app/game/model/data/Condition';
 import { ElementState } from 'src/app/game/model/data/Element';
+import { Figure } from 'src/app/game/model/Figure';
 import { GameState } from 'src/app/game/model/Game';
 import { Monster } from 'src/app/game/model/Monster';
 import { GhsLabelDirective } from 'src/app/ui/helper/label';
 
 export type GuidePhase = 'setup' | 'cardSelection' | 'turns' | 'roundEnd' | 'scenarioEnd';
 
-export type GuideTip = { label: string; args?: string[]; type?: 'info' | 'todo' | 'warning' };
+// a single instruction of the guide, optionally pointing at an element of the interface
+export type GuideStep = { label: string; args?: (string | number)[]; target?: () => Element | null; warning?: boolean };
+
+export type GuideRect = { top: number; left: number; width: number; height: number };
 
 export const GuidePhases: GuidePhase[] = ['cardSelection', 'turns', 'roundEnd'];
 
@@ -47,14 +51,27 @@ export const GuideConditions: ConditionName[] = [
   ConditionName.bless
 ];
 
+const visible = (selector: string, parent: ParentNode | null = document): Element | null => {
+  if (!parent) {
+    return null;
+  }
+  return Array.from(parent.querySelectorAll(selector)).find((element) => element.getClientRects().length > 0) || null;
+};
+
+const figureElement = (figure: Figure): Element | null => {
+  return document.querySelector('[data-guide-figure="' + figure.edition + '-' + figure.name + '"]');
+};
+
 @Component({
   imports: [NgClass, GhsLabelDirective],
   selector: 'ghs-guide',
   templateUrl: './guide.html',
   styleUrls: ['./guide.scss']
 })
-export class GuideComponent {
+export class GuideComponent implements OnInit, OnDestroy {
   private ghsManager = inject(GhsManager);
+  private cdr = inject(ChangeDetectorRef);
+  private elementRef = inject(ElementRef);
 
   gameManager: GameManager = gameManager;
   settingsManager: SettingsManager = settingsManager;
@@ -62,135 +79,172 @@ export class GuideComponent {
   GuideTopics = GuideTopics;
   GuideConditions = GuideConditions;
 
-  tab: 'now' | 'round' | 'rules' = 'now';
   phase: GuidePhase = 'setup';
-  tips: GuideTip[] = [];
+  steps: GuideStep[] = [];
+  stepIndex: number = 0;
+  context: string = '';
+
+  highlight: GuideRect | undefined;
+  bubbleTop: number | undefined;
+  bubbleLeft: number | undefined;
+  scrolledTarget: Element | undefined;
+
+  reference: boolean = false;
+  tab: 'round' | 'rules' = 'round';
   openPhase: GuidePhase | undefined;
   openTopic: string | undefined;
 
+  private interval: any;
+
   constructor() {
     this.ghsManager.uiChangeEffect(() => this.update());
+  }
+
+  ngOnInit(): void {
+    this.interval = setInterval(() => this.position(), 250);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+  }
+
+  get step(): GuideStep | undefined {
+    return this.steps[this.stepIndex];
   }
 
   update() {
     const game = gameManager.game;
     const characters = game.figures.filter((figure) => figure instanceof Character) as Character[];
     const monsters = game.figures.filter((figure) => figure instanceof Monster) as Monster[];
-    const tips: GuideTip[] = [];
+    const active = game.state === GameState.next ? game.figures.find((figure) => figure.active && !figure.off) : undefined;
+    const steps: GuideStep[] = [];
 
     if (game.finish) {
       this.phase = 'scenarioEnd';
-      tips.push({ label: 'guide.now.scenarioEnd' });
+      steps.push({ label: 'guide.step.scenarioEnd' });
     } else if (characters.length === 0) {
       this.phase = 'setup';
-      tips.push({ label: 'guide.now.noCharacters', type: 'todo' });
-      if (!game.scenario) {
-        tips.push({ label: 'guide.now.noScenario', type: 'todo' });
-      }
+      steps.push({ label: 'guide.step.addCharacters', target: () => visible('.add-characters') || visible('ghs-header .menu-button') });
+    } else if (
+      game.scenario &&
+      characters.every((character) => character.exhausted || character.absent || !gameManager.entityManager.isAlive(character))
+    ) {
+      this.phase = 'scenarioEnd';
+      steps.push({ label: 'guide.step.allExhausted', warning: true });
     } else if (game.state === GameState.draw) {
       this.phase = 'cardSelection';
       if (!game.scenario && monsters.length === 0) {
-        tips.push({ label: 'guide.now.noScenario', type: 'todo' });
+        steps.push({ label: 'guide.step.chooseScenario', target: () => visible('ghs-header .menu-button') });
       }
       if (game.round === 0) {
-        tips.push({ label: 'guide.now.firstRound' });
+        steps.push({ label: 'guide.step.firstRound' });
       }
-      tips.push({ label: 'guide.now.chooseCards' });
-      tips.push({ label: 'guide.now.longRestOption' });
-      const missing = characters.filter(
-        (character) =>
-          gameManager.entityManager.isAlive(character) && !character.absent && !character.exhausted && character.getInitiative() <= 0
-      );
-      if (missing.length > 0) {
-        tips.push({
-          label: 'guide.now.missingInitiative',
-          args: [missing.map((character) => gameManager.characterManager.characterName(character)).join(', ')],
-          type: 'todo'
+      steps.push({ label: 'guide.step.chooseCards' });
+      characters
+        .filter(
+          (character) =>
+            gameManager.entityManager.isAlive(character) && !character.absent && !character.exhausted && character.getInitiative() <= 0
+        )
+        .forEach((character) =>
+          steps.push({
+            label: 'guide.step.initiative',
+            args: [gameManager.characterManager.characterName(character)],
+            target: () => visible('.drag-initiative', figureElement(character)) || figureElement(character)
+          })
+        );
+      steps.push({ label: 'guide.step.draw', target: () => visible('ghs-footer .round-container') });
+    } else if (active instanceof Character) {
+      this.phase = 'turns';
+      const name = gameManager.characterManager.characterName(active);
+      steps.push({ label: 'guide.step.characterTurn', args: [name, active.initiative], target: () => figureElement(active) });
+      if (active.summons.some((summon) => gameManager.entityManager.isAlive(summon))) {
+        steps.push({ label: 'guide.step.summons', target: () => visible('.summons-container', figureElement(active)) });
+      }
+      if (active.longRest) {
+        steps.push({ label: 'guide.step.longRest', args: [name], target: () => figureElement(active) });
+      } else {
+        steps.push({ label: 'guide.step.playCards' });
+        steps.push({
+          label: 'guide.step.characterAttack',
+          target: () =>
+            visible('.attack-modifier-button', figureElement(active)) ||
+            visible('ghs-attackmodifier-deck', figureElement(active)) ||
+            visible('ghs-footer .character-deck')
         });
-      } else {
-        tips.push({ label: 'guide.now.readyToDraw', type: 'todo' });
+        if (monsters.some((monster) => monster.entities.some((entity) => gameManager.entityManager.isAlive(entity)))) {
+          steps.push({ label: 'guide.step.damageMonster', target: () => visible('ghs-standee') });
+        }
+        steps.push({ label: 'guide.step.elementsInfuse', target: () => visible('ghs-header .elements') });
       }
+      this.conditionSteps(active.entityConditions, steps, () => figureElement(active));
+      steps.push({
+        label: 'guide.step.endCharacterTurn',
+        args: [name],
+        target: () => visible('.drag-initiative', figureElement(active)) || figureElement(active)
+      });
+    } else if (active instanceof Monster) {
+      this.phase = 'turns';
+      const name = settingsManager.getLabel('data.monster.' + active.name);
+      steps.push({
+        label: 'guide.step.monsterTurn',
+        args: [name],
+        target: () => visible('ghs-monster-ability-card', figureElement(active)) || figureElement(active)
+      });
+      steps.push({ label: 'guide.step.monsterOrder', target: () => visible('.entities', figureElement(active)) });
+      steps.push({ label: 'guide.step.monsterFocus', target: () => visible('.entities', figureElement(active)) });
+      steps.push({ label: 'guide.step.monsterAttack', target: () => visible('ghs-footer .monster-deck') });
+      steps.push({ label: 'guide.step.damageCharacter', target: () => visible('ghs-character') });
+      const abilityCard = gameManager.monsterManager.getAbilityCard(active);
+      if (abilityCard && abilityCard.shuffle) {
+        steps.push({ label: 'guide.step.monsterShuffle', target: () => visible('ghs-monster-ability-card', figureElement(active)) });
+      }
+      const conditions: EntityCondition[] = [];
+      active.entities
+        .filter((entity) => gameManager.entityManager.isAlive(entity))
+        .forEach((entity) => conditions.push(...entity.entityConditions));
+      this.conditionSteps(conditions, steps, () => visible('.entities', figureElement(active)));
+      steps.push({
+        label: 'guide.step.endMonsterTurn',
+        args: [name],
+        target: () => visible('ghs-monster-image', figureElement(active)) || figureElement(active)
+      });
+    } else if (active) {
+      this.phase = 'turns';
+      steps.push({ label: 'guide.step.otherTurn', target: () => figureElement(active) });
     } else {
-      const active = game.figures.find((figure) => figure.active && !figure.off);
-      if (active instanceof Character) {
-        this.phase = 'turns';
-        tips.push({ label: 'guide.now.characterTurn', args: [gameManager.characterManager.characterName(active)] });
-        if (active.longRest) {
-          tips.push({ label: 'guide.now.longRest', type: 'todo' });
-        } else {
-          tips.push({ label: 'guide.now.playCards', type: 'todo' });
-          tips.push({ label: 'guide.now.attackHint' });
-        }
-        if (active.summons.some((summon) => gameManager.entityManager.isAlive(summon))) {
-          tips.push({ label: 'guide.now.summons' });
-        }
-        this.conditionTips(active.entityConditions, tips);
-        tips.push({ label: 'guide.now.endTurnCharacter', type: 'todo' });
-      } else if (active instanceof Monster) {
-        this.phase = 'turns';
-        tips.push({ label: 'guide.now.monsterTurn', args: [settingsManager.getLabel('data.monster.' + active.name)] });
-        tips.push({ label: 'guide.now.monsterOrder' });
-        tips.push({ label: 'guide.now.monsterFocus' });
-        tips.push({ label: 'guide.now.monsterAttack' });
-        const abilityCard = gameManager.monsterManager.getAbilityCard(active);
-        if (abilityCard && abilityCard.shuffle) {
-          tips.push({ label: 'guide.now.monsterShuffle' });
-        }
-        const conditions: EntityCondition[] = [];
-        active.entities
-          .filter((entity) => gameManager.entityManager.isAlive(entity))
-          .forEach((entity) => conditions.push(...entity.entityConditions));
-        this.conditionTips(conditions, tips);
-        tips.push({ label: 'guide.now.endTurn', type: 'todo' });
-      } else if (active) {
-        this.phase = 'turns';
-        tips.push({ label: 'guide.now.otherTurn', type: 'todo' });
-      } else {
-        this.phase = 'roundEnd';
-        tips.push({ label: 'guide.now.roundEnd' });
-        if (this.monsterDeckShuffle(game.monsterAttackModifierDeck.cards, game.monsterAttackModifierDeck.current)) {
-          tips.push({ label: 'guide.now.monsterModifierShuffle' });
-        }
-        characters
-          .filter((character) => this.monsterDeckShuffle(character.attackModifierDeck.cards, character.attackModifierDeck.current))
-          .forEach((character) =>
-            tips.push({ label: 'guide.now.characterModifierShuffle', args: [gameManager.characterManager.characterName(character)] })
-          );
-        tips.push({ label: 'guide.now.shortRest' });
-        tips.push({ label: 'guide.now.nextRound', type: 'todo' });
+      this.phase = 'roundEnd';
+      steps.push({ label: 'guide.step.roundEnd' });
+      if (game.elementBoard.some((element) => element.state === ElementState.strong || element.state === ElementState.waning)) {
+        steps.push({ label: 'guide.step.elementsWane', target: () => visible('ghs-header .elements') });
       }
+      if (this.deckShuffle(game.monsterAttackModifierDeck.cards, game.monsterAttackModifierDeck.current)) {
+        steps.push({ label: 'guide.step.monsterModifierShuffle', target: () => visible('ghs-footer .monster-deck') });
+      }
+      characters
+        .filter((character) => this.deckShuffle(character.attackModifierDeck.cards, character.attackModifierDeck.current))
+        .forEach((character) =>
+          steps.push({
+            label: 'guide.step.characterModifierShuffle',
+            args: [gameManager.characterManager.characterName(character)],
+            target: () => figureElement(character)
+          })
+        );
+      steps.push({ label: 'guide.step.shortRest' });
+      steps.push({ label: 'guide.step.nextRound', target: () => visible('ghs-footer .round-container') });
     }
 
-    const elements = game.elementBoard.filter((element) => element.state === ElementState.strong || element.state === ElementState.waning);
-    if (elements.length > 0 && this.phase !== 'setup' && this.phase !== 'scenarioEnd') {
-      tips.push({
-        label: 'guide.now.elements',
-        args: [elements.map((element) => '%game.element.' + element.type + '%').join(' ')]
-      });
+    // restart at the first step whenever the situation changes (new phase, new active figure)
+    const context = this.phase + '|' + game.round + '|' + (active ? active.edition + '-' + active.name : '');
+    if (context !== this.context) {
+      this.context = context;
+      this.stepIndex = 0;
     }
-
-    const exhausted = characters.filter((character) => character.exhausted && !character.absent);
-    if (exhausted.length > 0 && this.phase !== 'scenarioEnd') {
-      tips.push({
-        label: 'guide.now.exhausted',
-        args: [exhausted.map((character) => gameManager.characterManager.characterName(character)).join(', ')],
-        type: 'warning'
-      });
-    }
-
-    if (
-      game.scenario &&
-      this.phase !== 'scenarioEnd' &&
-      characters.length > 0 &&
-      characters.every((character) => character.exhausted || character.absent || !gameManager.entityManager.isAlive(character))
-    ) {
-      tips.push({ label: 'guide.now.allExhausted', type: 'warning' });
-    }
-
-    this.tips = tips;
+    this.steps = steps;
+    this.stepIndex = Math.max(0, Math.min(this.stepIndex, steps.length - 1));
+    this.position();
   }
 
-  conditionTips(entityConditions: EntityCondition[], tips: GuideTip[]) {
+  conditionSteps(entityConditions: EntityCondition[], steps: GuideStep[], target: () => Element | null) {
     const names: ConditionName[] = [];
     entityConditions
       .filter((condition) => !condition.expired && GuideConditions.includes(condition.name))
@@ -199,15 +253,76 @@ export class GuideComponent {
           names.push(condition.name);
         }
       });
-    names.forEach((name) => tips.push({ label: 'guide.condition.' + name, type: 'warning' }));
+    names.forEach((name) => steps.push({ label: 'guide.condition.' + name, target: target, warning: true }));
   }
 
-  monsterDeckShuffle(cards: { shuffle: boolean }[], current: number): boolean {
+  deckShuffle(cards: { shuffle: boolean }[], current: number): boolean {
     return cards.slice(0, current + 1).some((card) => card && card.shuffle);
   }
 
-  phaseActive(phase: GuidePhase): boolean {
-    return this.phase === phase;
+  // keep the highlight and the bubble next to the target, which may move (scrolling, animations, dialogs)
+  position() {
+    const target = this.step && this.step.target && !settingsManager.settings.guideModeMinimized ? this.step.target() : null;
+    let highlight: GuideRect | undefined;
+    let bubbleTop: number | undefined;
+    let bubbleLeft: number | undefined;
+
+    if (target) {
+      if (this.scrolledTarget !== target) {
+        this.scrolledTarget = target;
+        target.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
+      const rect = target.getBoundingClientRect();
+      const padding = 4;
+      highlight = {
+        top: Math.round(rect.top - padding),
+        left: Math.round(rect.left - padding),
+        width: Math.round(rect.width + padding * 2),
+        height: Math.round(rect.height + padding * 2)
+      };
+      const bubble: HTMLElement | null = this.elementRef.nativeElement.querySelector('.guide-bubble');
+      const bubbleWidth = bubble ? bubble.offsetWidth : 300;
+      const bubbleHeight = bubble ? bubble.offsetHeight : 150;
+      const margin = 12;
+      if (rect.bottom + margin + bubbleHeight < window.innerHeight) {
+        bubbleTop = rect.bottom + margin;
+      } else if (rect.top - margin - bubbleHeight > 0) {
+        bubbleTop = rect.top - margin - bubbleHeight;
+      } else {
+        bubbleTop = Math.max(margin, window.innerHeight - bubbleHeight - margin);
+      }
+      bubbleLeft = rect.left + rect.width / 2 - bubbleWidth / 2;
+      bubbleLeft = Math.max(margin, Math.min(bubbleLeft, window.innerWidth - bubbleWidth - margin));
+      bubbleTop = Math.round(bubbleTop);
+      bubbleLeft = Math.round(bubbleLeft);
+    } else {
+      this.scrolledTarget = undefined;
+    }
+
+    if (JSON.stringify(highlight) !== JSON.stringify(this.highlight) || bubbleTop !== this.bubbleTop || bubbleLeft !== this.bubbleLeft) {
+      this.highlight = highlight;
+      this.bubbleTop = bubbleTop;
+      this.bubbleLeft = bubbleLeft;
+      this.cdr.markForCheck();
+    }
+  }
+
+  next() {
+    if (this.stepIndex < this.steps.length - 1) {
+      this.stepIndex++;
+      this.position();
+    }
+  }
+
+  previous() {
+    if (this.stepIndex > 0) {
+      this.stepIndex--;
+      this.position();
+    }
+  }
+
+  toggleReference() {
+    this.reference = !this.reference;
   }
 
   togglePhase(phase: GuidePhase) {

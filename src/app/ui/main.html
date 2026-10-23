@@ -207,10 +207,12 @@
               ></div>
             }
             @if (gameManager.isCharacter(figure)) {
-              <ghs-character [character]="gameManager.toCharacter(figure)"> </ghs-character>
+              <ghs-character [character]="gameManager.toCharacter(figure)" [attr.data-guide-figure]="figure.edition + '-' + figure.name">
+              </ghs-character>
             }
             @if (gameManager.isMonster(figure)) {
-              <ghs-monster [monster]="gameManager.toMonster(figure)"> </ghs-monster>
+              <ghs-monster [monster]="gameManager.toMonster(figure)" [attr.data-guide-figure]="figure.edition + '-' + figure.name">
+              </ghs-monster>
             }
             @if (gameManager.isObjectiveContainer(figure)) {
               <ghs-objective-container [objective]="gameManager.toObjectiveContainer(figure)"> </ghs-objective-container>

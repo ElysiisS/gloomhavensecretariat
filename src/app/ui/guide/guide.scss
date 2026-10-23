@@ -1,20 +1,19 @@
-// left side, the monster attack modifier deck sits on the bottom right
 :host {
-  position: fixed;
-  left: calc(var(--ghs-unit) * 1);
-  bottom: calc(var(--ghs-unit) * 12 * var(--ghs-text-factor) * var(--ghs-barsize));
-  z-index: 3;
   font-family: var(--ghs-font-text);
   color: var(--ghs-color-white);
 }
 
 .guide-toggle {
+  position: fixed;
+  left: calc(var(--ghs-unit) * 1);
+  bottom: calc(var(--ghs-unit) * 12 * var(--ghs-text-factor) * var(--ghs-barsize));
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: calc(var(--ghs-unit) * 0.5);
   cursor: pointer;
   padding: calc(var(--ghs-unit) * 0.75) calc(var(--ghs-unit) * 1.5);
-  border: 1px solid var(--ghs-color-gray);
+  border: 1px solid var(--ghs-color-yellow);
   border-radius: calc(var(--ghs-unit) * 3);
   background-color: rgba(0, 0, 0, 0.85);
   font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-text-factor));
@@ -22,29 +21,76 @@
   img {
     width: calc(var(--ghs-unit) * 2.5 * var(--ghs-text-factor));
   }
+}
 
-  &.todo {
-    border-color: var(--ghs-color-yellow);
+// ring around the element the current step talks about, clicks go through to the app
+.guide-highlight {
+  position: fixed;
+  z-index: 3;
+  pointer-events: none;
+  border: 3px solid var(--ghs-color-yellow);
+  border-radius: calc(var(--ghs-unit) * 0.75);
+  box-shadow:
+    0 0 calc(var(--ghs-unit) * 1.5) var(--ghs-color-yellow),
+    0 0 0 100vmax rgba(0, 0, 0, 0.35);
+  transition:
+    top 0.2s ease,
+    left 0.2s ease,
+    width 0.2s ease,
+    height 0.2s ease;
+  animation: guide-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes guide-pulse {
+  50% {
+    border-color: var(--ghs-color-yellow-light);
   }
 }
 
-.guide-panel {
-  display: flex;
-  flex-direction: column;
-  width: min(calc(100vw - var(--ghs-unit) * 2), calc(var(--ghs-unit) * 60 * var(--ghs-text-factor)));
-  max-height: 60vh;
-  border: 1px solid var(--ghs-color-gray);
+.guide-bubble {
+  position: fixed;
+  z-index: 4;
+  left: calc(var(--ghs-unit) * 1);
+  bottom: calc(var(--ghs-unit) * 12 * var(--ghs-text-factor) * var(--ghs-barsize));
+  width: min(calc(100vw - var(--ghs-unit) * 2), calc(var(--ghs-unit) * 50 * var(--ghs-text-factor)));
+  border: 2px solid var(--ghs-color-yellow);
   border-radius: calc(var(--ghs-unit) * 0.75);
-  background-color: rgba(10, 14, 18, 0.95);
+  background-color: rgba(10, 14, 18, 0.97);
   box-shadow: 0 0 calc(var(--ghs-unit) * 2) rgba(0, 0, 0, 0.8);
-  font-size: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
+  font-size: calc(var(--ghs-unit) * 2.1 * var(--ghs-text-factor));
+  line-height: 1.35;
+
+  &.anchored {
+    bottom: auto;
+  }
+
+  &.warning {
+    border-color: var(--ghs-color-red);
+  }
+
+  .text {
+    padding: calc(var(--ghs-unit) * 1) calc(var(--ghs-unit) * 1.25);
+  }
+
+  .reference-toggle {
+    display: block;
+    cursor: pointer;
+    padding: 0 calc(var(--ghs-unit) * 1.25) calc(var(--ghs-unit) * 0.75);
+    color: var(--ghs-color-gray);
+    font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-text-factor));
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--ghs-color-white);
+    }
+  }
 }
 
 .guide-header {
   display: flex;
   align-items: center;
   gap: calc(var(--ghs-unit) * 1);
-  padding: calc(var(--ghs-unit) * 0.75) calc(var(--ghs-unit) * 1);
+  padding: calc(var(--ghs-unit) * 0.6) calc(var(--ghs-unit) * 1);
   border-bottom: 1px solid var(--ghs-color-darkgray);
 
   .title {
@@ -52,23 +98,19 @@
     display: flex;
     align-items: center;
     gap: calc(var(--ghs-unit) * 0.5);
+    color: var(--ghs-color-yellow);
     font-family: var(--ghs-font-title);
-    font-size: calc(var(--ghs-unit) * 2.6 * var(--ghs-text-factor));
+    font-size: calc(var(--ghs-unit) * 2.3 * var(--ghs-text-factor));
 
     img {
-      width: calc(var(--ghs-unit) * 2.5 * var(--ghs-text-factor));
-    }
-
-    .round {
-      color: var(--ghs-color-gray);
-      font-family: var(--ghs-font-text);
-      font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-text-factor));
+      width: calc(var(--ghs-unit) * 2.3 * var(--ghs-text-factor));
     }
   }
 
   .action {
     cursor: pointer;
     color: var(--ghs-color-gray);
+    font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-text-factor));
 
     &:hover {
       color: var(--ghs-color-white);
@@ -78,6 +120,55 @@
       width: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
     }
   }
+}
+
+.guide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 calc(var(--ghs-unit) * 1.25) calc(var(--ghs-unit) * 0.75);
+
+  .count {
+    color: var(--ghs-color-gray);
+  }
+
+  .nav {
+    cursor: pointer;
+    font-family: var(--ghs-font-title);
+    font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-text-factor));
+
+    &.next {
+      color: var(--ghs-color-yellow);
+    }
+
+    &.disabled {
+      visibility: hidden;
+    }
+
+    &.waiting {
+      cursor: default;
+      color: var(--ghs-color-gray);
+      font-family: var(--ghs-font-text);
+      font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-text-factor));
+      font-style: italic;
+    }
+  }
+}
+
+.guide-panel {
+  position: fixed;
+  z-index: 4;
+  right: calc(var(--ghs-unit) * 1);
+  top: calc(var(--ghs-unit) * 8 * var(--ghs-text-factor) * var(--ghs-barsize));
+  display: flex;
+  flex-direction: column;
+  width: min(calc(100vw - var(--ghs-unit) * 2), calc(var(--ghs-unit) * 55 * var(--ghs-text-factor)));
+  max-height: 60vh;
+  border: 1px solid var(--ghs-color-gray);
+  border-radius: calc(var(--ghs-unit) * 0.75);
+  background-color: rgba(10, 14, 18, 0.97);
+  box-shadow: 0 0 calc(var(--ghs-unit) * 2) rgba(0, 0, 0, 0.8);
+  font-size: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
 }
 
 .guide-tabs {
@@ -95,6 +186,14 @@
       color: var(--ghs-color-white);
       border-bottom-color: var(--ghs-color-yellow);
     }
+
+    &.close {
+      flex: 0;
+
+      img {
+        width: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
+      }
+    }
   }
 }
 
@@ -103,33 +202,10 @@
   padding: calc(var(--ghs-unit) * 1);
   line-height: 1.35;
 
-  .phase-label {
-    margin-bottom: calc(var(--ghs-unit) * 0.5);
-    color: var(--ghs-color-yellow);
-    font-family: var(--ghs-font-title);
-    font-size: calc(var(--ghs-unit) * 2.3 * var(--ghs-text-factor));
-  }
-
   ul,
   ol {
     margin: 0;
     padding-left: calc(var(--ghs-unit) * 2.5);
-  }
-
-  .tips li {
-    margin-bottom: calc(var(--ghs-unit) * 0.75);
-
-    &.todo::marker {
-      color: var(--ghs-color-yellow);
-    }
-
-    &.todo {
-      font-weight: bold;
-    }
-
-    &.warning::marker {
-      color: var(--ghs-color-red);
-    }
   }
 
   .intro {
@@ -168,9 +244,11 @@
   .conditions li {
     margin-top: calc(var(--ghs-unit) * 0.5);
   }
+}
 
-  ::ng-deep img.icon,
-  ::ng-deep .element.inline img {
+::ng-deep ghs-guide {
+  img.icon,
+  .element.inline img {
     height: 1.2em;
     vertical-align: middle;
   }
