@@ -1,0 +1,177 @@
+// left side, the monster attack modifier deck sits on the bottom right
+:host {
+  position: fixed;
+  left: calc(var(--ghs-unit) * 1);
+  bottom: calc(var(--ghs-unit) * 12 * var(--ghs-text-factor) * var(--ghs-barsize));
+  z-index: 3;
+  font-family: var(--ghs-font-text);
+  color: var(--ghs-color-white);
+}
+
+.guide-toggle {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ghs-unit) * 0.5);
+  cursor: pointer;
+  padding: calc(var(--ghs-unit) * 0.75) calc(var(--ghs-unit) * 1.5);
+  border: 1px solid var(--ghs-color-gray);
+  border-radius: calc(var(--ghs-unit) * 3);
+  background-color: rgba(0, 0, 0, 0.85);
+  font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-text-factor));
+
+  img {
+    width: calc(var(--ghs-unit) * 2.5 * var(--ghs-text-factor));
+  }
+
+  &.todo {
+    border-color: var(--ghs-color-yellow);
+  }
+}
+
+.guide-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(calc(100vw - var(--ghs-unit) * 2), calc(var(--ghs-unit) * 60 * var(--ghs-text-factor)));
+  max-height: 60vh;
+  border: 1px solid var(--ghs-color-gray);
+  border-radius: calc(var(--ghs-unit) * 0.75);
+  background-color: rgba(10, 14, 18, 0.95);
+  box-shadow: 0 0 calc(var(--ghs-unit) * 2) rgba(0, 0, 0, 0.8);
+  font-size: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ghs-unit) * 1);
+  padding: calc(var(--ghs-unit) * 0.75) calc(var(--ghs-unit) * 1);
+  border-bottom: 1px solid var(--ghs-color-darkgray);
+
+  .title {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ghs-unit) * 0.5);
+    font-family: var(--ghs-font-title);
+    font-size: calc(var(--ghs-unit) * 2.6 * var(--ghs-text-factor));
+
+    img {
+      width: calc(var(--ghs-unit) * 2.5 * var(--ghs-text-factor));
+    }
+
+    .round {
+      color: var(--ghs-color-gray);
+      font-family: var(--ghs-font-text);
+      font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-text-factor));
+    }
+  }
+
+  .action {
+    cursor: pointer;
+    color: var(--ghs-color-gray);
+
+    &:hover {
+      color: var(--ghs-color-white);
+    }
+
+    img {
+      width: calc(var(--ghs-unit) * 2 * var(--ghs-text-factor));
+    }
+  }
+}
+
+.guide-tabs {
+  display: flex;
+
+  a {
+    flex: 1;
+    cursor: pointer;
+    padding: calc(var(--ghs-unit) * 0.6);
+    text-align: center;
+    color: var(--ghs-color-gray);
+    border-bottom: 2px solid transparent;
+
+    &.active {
+      color: var(--ghs-color-white);
+      border-bottom-color: var(--ghs-color-yellow);
+    }
+  }
+}
+
+.guide-content {
+  overflow-y: auto;
+  padding: calc(var(--ghs-unit) * 1);
+  line-height: 1.35;
+
+  .phase-label {
+    margin-bottom: calc(var(--ghs-unit) * 0.5);
+    color: var(--ghs-color-yellow);
+    font-family: var(--ghs-font-title);
+    font-size: calc(var(--ghs-unit) * 2.3 * var(--ghs-text-factor));
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: calc(var(--ghs-unit) * 2.5);
+  }
+
+  .tips li {
+    margin-bottom: calc(var(--ghs-unit) * 0.75);
+
+    &.todo::marker {
+      color: var(--ghs-color-yellow);
+    }
+
+    &.todo {
+      font-weight: bold;
+    }
+
+    &.warning::marker {
+      color: var(--ghs-color-red);
+    }
+  }
+
+  .intro {
+    margin: 0 0 calc(var(--ghs-unit) * 1) 0;
+    color: var(--ghs-color-gray);
+  }
+
+  .phases li,
+  .topic {
+    margin-bottom: calc(var(--ghs-unit) * 0.75);
+
+    > a {
+      cursor: pointer;
+      color: var(--ghs-color-gray);
+      font-family: var(--ghs-font-title);
+      font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-text-factor));
+
+      &:hover {
+        color: var(--ghs-color-white);
+      }
+    }
+
+    &.open > a {
+      color: var(--ghs-color-white);
+    }
+
+    &.current > a {
+      color: var(--ghs-color-yellow);
+    }
+
+    .text {
+      margin-top: calc(var(--ghs-unit) * 0.4);
+    }
+  }
+
+  .conditions li {
+    margin-top: calc(var(--ghs-unit) * 0.5);
+  }
+
+  ::ng-deep img.icon,
+  ::ng-deep .element.inline img {
+    height: 1.2em;
+    vertical-align: middle;
+  }
+}

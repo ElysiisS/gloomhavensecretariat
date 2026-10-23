@@ -1,0 +1,69 @@
+@if (settingsManager.settings.guideModeMinimized) {
+  <a class="guide-toggle" (click)="minimize()" [ngClass]="{ todo: phase !== 'setup' }">
+    <img class="ghs-svg" src="./assets/images/hint.svg" />
+    <span [ghs-label]="'guide'"></span>
+  </a>
+} @else {
+  <div class="guide-panel">
+    <div class="guide-header">
+      <span class="title">
+        <img class="ghs-svg" src="./assets/images/hint.svg" />
+        <span [ghs-label]="'guide'"></span>
+        @if (gameManager.game.round > 0) {
+          <span class="round" [ghs-label]="'guide.round'" [ghs-label-args]="[gameManager.game.round]"></span>
+        }
+      </span>
+      <a class="action" (click)="minimize()" [ghs-label]="'guide.minimize'"></a>
+      <a class="action" (click)="close()"><img src="./assets/images/close.svg" /></a>
+    </div>
+    <div class="guide-tabs">
+      <a [ngClass]="{ active: tab === 'now' }" (click)="tab = 'now'" [ghs-label]="'guide.tab.now'"></a>
+      <a [ngClass]="{ active: tab === 'round' }" (click)="tab = 'round'" [ghs-label]="'guide.tab.round'"></a>
+      <a [ngClass]="{ active: tab === 'rules' }" (click)="tab = 'rules'" [ghs-label]="'guide.tab.rules'"></a>
+    </div>
+    <div class="guide-content">
+      @switch (tab) {
+        @case ('now') {
+          <div class="phase-label" [ghs-label]="'guide.phase.' + phase"></div>
+          <ul class="tips">
+            @for (tip of tips; track $index) {
+              <li [ngClass]="tip.type || 'info'" [ghs-label]="tip.label" [ghs-label-args]="tip.args || []"></li>
+            }
+          </ul>
+        }
+        @case ('round') {
+          <p class="intro" [ghs-label]="'guide.round.intro'"></p>
+          <ol class="phases">
+            @for (step of GuidePhases; track step) {
+              <li [ngClass]="{ current: phaseActive(step), open: openPhase === step || phaseActive(step) }">
+                <a (click)="togglePhase(step)" [ghs-label]="'guide.phase.' + step"></a>
+                @if (openPhase === step || phaseActive(step)) {
+                  <div class="text" [ghs-label]="'guide.phase.' + step + '.text'"></div>
+                }
+              </li>
+            }
+          </ol>
+        }
+        @case ('rules') {
+          <div class="topics">
+            @for (topic of GuideTopics; track topic) {
+              <div class="topic" [ngClass]="{ open: openTopic === topic }">
+                <a (click)="toggleTopic(topic)" [ghs-label]="'guide.topic.' + topic"></a>
+                @if (openTopic === topic) {
+                  <div class="text" [ghs-label]="'guide.topic.' + topic + '.text'"></div>
+                  @if (topic === 'conditions') {
+                    <ul class="conditions">
+                      @for (condition of GuideConditions; track condition) {
+                        <li [ghs-label]="'guide.condition.' + condition"></li>
+                      }
+                    </ul>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </div>
+}

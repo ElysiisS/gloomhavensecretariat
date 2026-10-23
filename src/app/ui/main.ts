@@ -21,6 +21,7 @@ import { MonsterNumberPickerDialog } from 'src/app/ui/figures/monster/dialogs/nu
 import { MonsterComponent } from 'src/app/ui/figures/monster/monster';
 import { ObjectiveContainerComponent } from 'src/app/ui/figures/objective-container/objective-container';
 import { FooterComponent } from 'src/app/ui/footer/footer';
+import { GuideComponent } from 'src/app/ui/guide/guide';
 import { HeaderComponent } from 'src/app/ui/header/header';
 import { SubMenu } from 'src/app/ui/header/menu/sub-menu';
 import { FigureAutoscrollDirective } from 'src/app/ui/helper/autoscroll';
@@ -42,6 +43,7 @@ import { environment } from 'src/environments/environment';
     MonsterComponent,
     ObjectiveContainerComponent,
     FooterComponent,
+    GuideComponent,
     HeaderComponent,
     FigureAutoscrollDirective,
     KeyboardShortcuts,

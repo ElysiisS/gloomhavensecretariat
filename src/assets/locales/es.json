@@ -1452,6 +1452,140 @@
       "all": "todos"
     }
   },
+  "guide": {
+    "": "Modo guía",
+    "condition": {
+      "bless": "%game.conditionIcon.bless% <b>Bendición</b>: se baraja una carta de Bendición (×2) en su mazo de modificadores. Cuando sale, se retira del mazo.",
+      "curse": "%game.conditionIcon.curse% <b>Maldición</b>: se baraja una carta de Maldición en su mazo de modificadores. Si sale, ese ataque no hace daño y la carta se retira del mazo.",
+      "disarm": "%game.conditionIcon.disarm% <b>Desarmar</b>: no puede atacar en su próximo turno. Se quita al final de ese turno.",
+      "immobilize": "%game.conditionIcon.immobilize% <b>Inmovilizar</b>: no puede moverse en su próximo turno. Se quita al final de ese turno.",
+      "invisible": "%game.conditionIcon.invisible% <b>Invisible</b>: los enemigos no pueden elegirla como objetivo. Dura hasta el final de su próximo turno.",
+      "muddle": "%game.conditionIcon.muddle% <b>Confusión</b>: sus ataques tienen desventaja durante su próximo turno. Se quita al final de ese turno.",
+      "poison": "%game.conditionIcon.poison% <b>Veneno</b>: los ataques contra esa figura hacen +1. Cualquier curación lo quita, pero entonces no recupera vida.",
+      "strengthen": "%game.conditionIcon.strengthen% <b>Fortalecer</b>: sus ataques tienen ventaja hasta el final de su próximo turno.",
+      "stun": "%game.conditionIcon.stun% <b>Aturdir</b>: en su próximo turno no puede hacer acciones ni usar objetos. Un personaje aturdido aún debe jugar dos cartas (sin usarlas) o descansar. Se quita al final de ese turno.",
+      "wound": "%game.conditionIcon.wound% <b>Herida</b>: sufre 1 de daño al empezar cada uno de sus turnos. Una curación la quita y además cura con normalidad."
+    },
+    "menu": {
+      "off": "Desactivar modo guía",
+      "on": "Activar modo guía"
+    },
+    "minimize": "Minimizar",
+    "now": {
+      "allExhausted": "Si todos los personajes quedan agotados, el escenario se pierde.",
+      "attackHint": "Al atacar: suma primero los bonus (por ejemplo +1 si el objetivo está envenenado), roba una carta de tu mazo de modificadores por cada objetivo, aplícala y resta el Escudo del objetivo.",
+      "characterModifierShuffle": "{0} ha robado un ×2 o un Nulo: su mazo de modificadores se baraja con los descartes al final de la ronda.",
+      "characterTurn": "Turno de <b>{0}</b>.",
+      "chooseCards": "Cada jugador elige en secreto dos cartas de su mano y decide cuál es la inicial: su número marca la iniciativa del personaje. Podéis hablar de planes, pero sin decir números ni cartas concretas.",
+      "elements": "Elementos que se pueden consumir ahora: {0}. Si una acción pide consumir uno de ellos, obtienes su bonus y el elemento pasa a inerte.",
+      "endTurn": "Cuando termine, toca la figura para cerrar su turno y pasar a la siguiente.",
+      "endTurnCharacter": "Al acabar tu turno recoges el dinero o tesoro del hexágono en el que estés. Después toca la figura para cerrar el turno.",
+      "exhausted": "Agotados: {0}. Un personaje agotado retira su figura y no vuelve a participar en este escenario, aunque conserva la experiencia y el oro que haya conseguido.",
+      "firstRound": "Primera ronda: cada jugador roba dos objetivos de batalla y se queda con uno en secreto. Leed también las reglas especiales del escenario.",
+      "longRest": "Descanso largo: elige una carta de tu pila de descartes y piérdela, recupera el resto en tu mano, cúrate 2 y renueva tus objetos gastados. Este turno no haces nada más.",
+      "longRestOption": "Si no puedes jugar dos cartas, o quieres recuperar cartas, declara un <b>descanso largo</b>: tu iniciativa será 99.",
+      "missingInitiative": "Falta la iniciativa de: <b>{0}</b>. Toca la casilla de iniciativa de cada personaje y escribe el número de su carta inicial, o marca el descanso largo.",
+      "monsterAttack": "En cada ataque de monstruo roba una carta del mazo de modificadores de los monstruos (lo comparten todos). El daño base sale de su estadística (normal o élite) más lo que indique la carta de habilidad.",
+      "monsterFocus": "Cada monstruo primero <b>fija objetivo</b>: el enemigo al que puede atacar con menos movimiento. Si hay empate, el más cercano; si sigue empatado, el de menor iniciativa. Luego se mueve lo justo para atacarlo.",
+      "monsterModifierShuffle": "Del mazo de modificadores de los monstruos ha salido un ×2 o un Nulo: se baraja con sus descartes al final de la ronda.",
+      "monsterOrder": "Actúan de uno en uno: primero los de élite y después los normales, cada grupo por el número de su standee de menor a mayor.",
+      "monsterShuffle": "Su carta de habilidad tiene el símbolo de barajar: al final de la ronda se baraja el mazo de este monstruo.",
+      "monsterTurn": "Turno de <b>{0}</b>. Todos los monstruos de este tipo hacen las acciones de su carta de habilidad revelada.",
+      "nextRound": "Pulsa \"%round.next%\" para empezar la siguiente ronda y volver a elegir cartas.",
+      "noCharacters": "Empieza añadiendo los personajes de los jugadores desde el menú principal.",
+      "noScenario": "Elige el escenario en el menú principal para que la app coloque sus monstruos, o añade los monstruos a mano.",
+      "otherTurn": "Es el turno de un objetivo o aliado: resuélvelo como diga el escenario y toca la figura para cerrar su turno.",
+      "playCards": "Juega tus dos cartas en el orden que quieras: de una usas la <b>acción superior</b> y de la otra la <b>acción inferior</b>. En su lugar puedes usar una acción básica: Atacar 2 con la mitad superior o Mover 2 con la inferior.",
+      "readyToDraw": "Todas las iniciativas están listas. Pulsa \"%round.draw%\" para revelar las cartas de los monstruos y empezar los turnos.",
+      "roundEnd": "Todas las figuras han actuado: es el final de ronda. Los elementos bajan un nivel (fuerte a menguante, menguante a inerte); la app lo hace al pasar de ronda.",
+      "scenarioEnd": "El escenario ha terminado. Apunta la experiencia (más el bonus del escenario si ganasteis), cambia las fichas de dinero por oro según el nivel, comprueba tu objetivo de batalla y recupera todas tus cartas y objetos.",
+      "shortRest": "Quien tenga al menos dos cartas en descartes puede hacer un <b>descanso corto</b>: baraja sus descartes, pierde una al azar y recupera el resto. Si no le gusta la perdida, puede sufrir 1 de daño para perder otra al azar.",
+      "summons": "Tus invocaciones actúan al empezar tu turno, antes que tú, con las reglas de los monstruos: fijan objetivo, se mueven y atacan. No actúan la ronda en que aparecen."
+    },
+    "phase": {
+      "cardSelection": {
+        "": "1. Selección de cartas",
+        "text": "Cada jugador elige en secreto <b>dos cartas</b> de su mano y señala la inicial, cuyo número será su iniciativa. Si no puede jugar dos cartas, o prefiere recuperar cartas, declara un <b>descanso largo</b> (iniciativa 99). Escribe la iniciativa de cada personaje en la app."
+      },
+      "roundEnd": {
+        "": "3. Final de ronda",
+        "text": "Cuando todos han actuado: los elementos bajan un nivel; los mazos de modificadores de los que salió un ×2 o un Nulo se barajan con sus descartes; los mazos de monstruo cuya carta tenía el símbolo de barajar se barajan. Quien tenga dos o más cartas en descartes puede hacer un <b>descanso corto</b>. Después pulsa \"%round.next%\"."
+      },
+      "scenarioEnd": "Fin del escenario",
+      "setup": "Preparación",
+      "turns": {
+        "": "2. Iniciativa y turnos",
+        "text": "Al pulsar \"%round.draw%\" se revelan las cartas de los jugadores y se roba una carta de habilidad por cada tipo de monstruo; su número es la iniciativa de ese grupo. Se actúa de menor a mayor iniciativa. Si empatan dos personajes, decide su segunda carta; si empatan un personaje y un monstruo, va antes el personaje. La app ordena las figuras: toca cada una al terminar su turno."
+      }
+    },
+    "round": {
+      "": "Ronda {0}",
+      "intro": "Todas las rondas siguen los mismos pasos. Toca uno para ver qué hay que hacer; el paso actual aparece resaltado."
+    },
+    "tab": {
+      "now": "Ahora",
+      "round": "La ronda",
+      "rules": "Reglas"
+    },
+    "topic": {
+      "attack": {
+        "": "Ataques",
+        "text": "Los ataques cuerpo a cuerpo van a un hexágono adyacente; los ataques a distancia tienen Alcance y necesitan línea de visión, y tienen desventaja contra enemigos adyacentes. Para resolverlos: suma los bonus al valor de ataque, roba un modificador por objetivo, aplícalo y resta el Escudo del objetivo. Objetivo X permite atacar a varios enemigos distintos."
+      },
+      "basics": {
+        "": "Lo básico",
+        "text": "Gloomhaven es cooperativo: ganáis o perdéis juntos. Cada escenario tiene un objetivo (casi siempre acabar con todos los enemigos) que se lee en el Libro de Escenarios. No hay dados: tus cartas de habilidad son a la vez tus acciones y tu reloj, porque cada carta perdida te acerca al agotamiento."
+      },
+      "cards": {
+        "": "Cartas de habilidad",
+        "text": "Cada carta tiene una iniciativa en el centro, una acción superior y una inferior. Las cartas jugadas van a la pila de descartes; las que muestran el símbolo de pérdida van a la pila de cartas perdidas y no vuelven hasta el próximo escenario. Las que crean un bonus persistente o de ronda se quedan en la mesa mientras dura el efecto."
+      },
+      "conditions": {
+        "": "Estados",
+        "text": "Los estados se aplican con ataques y otras acciones y se marcan en la figura. Los negativos que afectan al próximo turno se quitan al final de ese turno; Veneno y Herida duran hasta que la figura recibe una curación. La app los muestra en cada figura y te avisa de ellos durante su turno."
+      },
+      "elements": {
+        "": "Elementos",
+        "text": "Algunas acciones infusionan un elemento, que queda fuerte al final del turno de quien lo creó. Al final de cada ronda los elementos bajan un nivel: fuerte, menguante e inerte. Consumir un elemento fuerte o menguante activa el bonus de la acción que lo pide y lo deja inerte. Los monstruos también infusionan y consumen. La tabla de elementos está en la parte superior de la app."
+      },
+      "exhaustion": {
+        "": "Agotamiento",
+        "text": "Quedas agotado si tus puntos de vida llegan a 0, o si al empezar una ronda no puedes jugar dos cartas ni descansar. Para evitar el daño de una fuente puedes perder una carta de la mano o dos de la pila de descartes. Un personaje agotado sale del escenario, y sus invocaciones desaparecen."
+      },
+      "loot": {
+        "": "Saqueo y experiencia",
+        "text": "Al final de tu turno recoges el dinero o tesoro de tu hexágono, y Saquear X recoge lo que haya a X hexágonos. Las acciones con el símbolo de experiencia te dan puntos al usarlas. Al acabar el escenario cada ficha de dinero vale oro según el nivel del escenario."
+      },
+      "modifiers": {
+        "": "Modificadores de ataque",
+        "text": "Cada ataque roba una carta: +0, +1, -1, +2, -2, ×2 o Nulo (sin daño). Si sale un ×2 o un Nulo, el mazo se baraja al final de la ronda. Con <b>ventaja</b> robas dos y usas la mejor; con <b>desventaja</b> robas dos y usas la peor. Las cartas de \"rodar\" se suman a la siguiente que robes. Bendición y Maldición se retiran del mazo al salir."
+      },
+      "monsters": {
+        "": "Monstruos",
+        "text": "Cada tipo de monstruo comparte una carta de habilidad por ronda, cuyos valores se suman a sus estadísticas (normal o élite) según el nivel del escenario. Cada monstruo fija objetivo, se mueve lo necesario y ataca; si no puede llegar a nadie, se acerca todo lo que pueda. Si tienen otro camino, evitan trampas y terreno peligroso."
+      },
+      "move": {
+        "": "Movimiento",
+        "text": "Mover X te permite avanzar hasta X hexágonos. Puedes pasar por hexágonos de aliados, pero no de enemigos ni obstáculos. El terreno dificultoso cuesta 2 de movimiento y las trampas se activan al entrar en ellas. Salto y Volar ignoran lo que hay en el camino. Al abrir una puerta se revela la siguiente habitación con sus monstruos."
+      },
+      "rest": {
+        "": "Descansos",
+        "text": "Para descansar necesitas al menos dos cartas en descartes. <b>Descanso corto</b>, al final de la ronda: barajas los descartes, pierdes una al azar (o sufres 1 de daño para cambiarla por otra al azar) y recuperas el resto. <b>Descanso largo</b>, declarado al elegir cartas con iniciativa 99: eliges qué carta pierdes, recuperas el resto, te curas 2 y renuevas tus objetos gastados."
+      },
+      "scenarioEnd": {
+        "": "Fin del escenario",
+        "text": "Si se cumple el objetivo, se termina la ronda en curso y el escenario se gana. Si todos los personajes quedan agotados, se pierde. Al ganar, cada personaje recibe la experiencia extra del escenario (4 + 2 × nivel) y las recompensas del Libro de Escenarios, y se revisan los objetivos de batalla. Ganes o pierdas, te quedas la experiencia y el oro conseguidos."
+      },
+      "summons": {
+        "": "Invocaciones",
+        "text": "Una invocación es una figura aliada con sus propias estadísticas. Actúa al empezar el turno de quien la invocó, siguiendo las reglas de los monstruos, y no actúa la ronda en que aparece. Si su invocador queda agotado, desaparece."
+      },
+      "turn": {
+        "": "Tu turno",
+        "text": "Juegas tus dos cartas en el orden que quieras: la acción superior de una y la inferior de la otra. Las partes de cada acción se hacen en el orden impreso y puedes saltarte las que no quieras. Puedes usar objetos en cualquier momento de tu turno. Las acciones con el símbolo de experiencia te dan esos puntos al usarlas."
+      }
+    }
+  },
   "help": "Ayuda",
   "rules": "Reglas (PDF)",
   "hints": {
@@ -2961,6 +3095,10 @@
       "hint": "Aplica siempre la última configuración de Imbuimientos de Monstruos a todos los escenarios."
     },
     "gh2eRules": "Gloomhaven 2ª Edición",
+    "guideMode": {
+      "": "Modo guía",
+      "hint": "Muestra un panel que explica paso a paso qué hacer en cada fase de la ronda, pensado para quien empieza en Gloomhaven (1.ª edición)."
+    },
     "helperDefaults": {
       "": "Aplicar los ajustes por defectos de Helper"
     },

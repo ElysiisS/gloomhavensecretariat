@@ -295,3 +295,6 @@
   }
 </main>
 <ghs-footer #footer></ghs-footer>
+@if (settingsManager.settings.guideMode && !fullviewChar) {
+  <ghs-guide></ghs-guide>
+}

@@ -159,6 +159,8 @@ export class Settings {
   gh2eImbuementKeep: boolean = false;
   globalFontsize: number = 1;
   globalMapHighlighting: boolean = true;
+  guideMode: boolean = false;
+  guideModeMinimized: boolean = false;
   fullscreen: boolean = false;
   hideAbsent: boolean = false;
   hideCharacterHP: boolean = false;
@@ -293,6 +295,8 @@ export const localSettings: string[] = [
   'gameClockMerge',
   'globalFontsize',
   'globalMapHighlighting',
+  'guideMode',
+  'guideModeMinimized',
   'feedbackErrors',
   'feedbackErrorsIgnore',
   'fullscreen',

@@ -127,6 +127,11 @@
           <a tabclick (click)="setActive(SubMenu.settings)"><span [ghs-label]="'settings'"></span></a>
         </div>
         <div class="line">
+          <a tabclick (click)="settingsManager.toggle('guideMode'); close()">
+            <span [ghs-label]="settingsManager.settings.guideMode ? 'guide.menu.off' : 'guide.menu.on'"></span>
+          </a>
+        </div>
+        <div class="line">
           <a tabclick (click)="setActive(SubMenu.datamanagement)"><span [ghs-label]="'datamanagement'"></span></a>
         </div>
         <div class="separator"></div>
