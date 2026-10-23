@@ -18,10 +18,11 @@ import {
   ImbuementAttackModifier
 } from 'src/app/game/model/data/AttackModifier';
 import { CharacterData } from 'src/app/game/model/data/CharacterData';
+import { ConditionName } from 'src/app/game/model/data/Condition';
 import { CampaignData } from 'src/app/game/model/data/EditionData';
 import { Perk, PerkCard, PerkType } from 'src/app/game/model/data/Perks';
 import { PersonalQuestAutotrackType } from 'src/app/game/model/data/PersonalQuest';
-import { EntityValueFunction } from 'src/app/game/model/Entity';
+import { Entity, EntityValueFunction } from 'src/app/game/model/Entity';
 import { Figure } from 'src/app/game/model/Figure';
 import { Game } from 'src/app/game/model/Game';
 import { Monster } from 'src/app/game/model/Monster';
@@ -353,6 +354,45 @@ export class AttackModifierManager {
       attackModifierDeck.lastVisible = 0;
     }
     gameManager.triggerUiChange(false);
+  }
+
+  // strengthen grants advantage and muddle disadvantage to the attacker, both cancel each other out
+  conditionState(attackModifierDeck: AttackModifierDeck, character?: Character): 'advantage' | 'disadvantage' | undefined {
+    const attackers = this.conditionAttackers(attackModifierDeck, character);
+    if (attackers.length === 0) {
+      return undefined;
+    }
+    const has = (name: ConditionName) =>
+      attackers.every((entity) => entity.entityConditions.some((condition) => condition.name === name && !condition.expired));
+    const strengthen = has(ConditionName.strengthen);
+    const muddle = has(ConditionName.muddle);
+    if (strengthen && !muddle) {
+      return 'advantage';
+    } else if (muddle && !strengthen) {
+      return 'disadvantage';
+    }
+    return undefined;
+  }
+
+  // the entities that may be attacking with this deck right now, a single active standee or summon narrows it down to one
+  conditionAttackers(attackModifierDeck: AttackModifierDeck, character?: Character): Entity[] {
+    if (character) {
+      const summon = character.summons.find((summon) => summon.active && gameManager.entityManager.isAlive(summon));
+      return [summon || character];
+    }
+    if (
+      attackModifierDeck !== gameManager.game.monsterAttackModifierDeck &&
+      attackModifierDeck !== gameManager.game.allyAttackModifierDeck
+    ) {
+      return [];
+    }
+    const monster = gameManager.game.figures.find((figure) => figure instanceof Monster && figure.active) as Monster | undefined;
+    if (!monster) {
+      return [];
+    }
+    const entities = monster.entities.filter((entity) => gameManager.entityManager.isAlive(entity));
+    const active = entities.filter((entity) => entity.active);
+    return active.length === 1 ? active : entities;
   }
 
   drawAdvantage(attackModifierDeck: AttackModifierDeck, state: 'advantage' | 'disadvantage') {

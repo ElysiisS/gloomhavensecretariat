@@ -1507,6 +1507,14 @@
       "damageCharacter": "Subtract the damage from the attacked character by tapping their figure to adjust their hit points. They may avoid the damage by losing one card from hand or two from the discard pile.",
       "damageMonster": "To damage a monster, tap its standee here: you can lower its hit points and add conditions. At 0 it dies.",
       "draw": "Everyone has an initiative. Press <b>\"%round.draw%\"</b>: the monster cards are revealed and the app orders everyone by initiative.",
+      "drawAuto": {
+        "muddle": "%game.conditionIcon.muddle% <b>Muddle</b>: its attacks have disadvantage. When you tap the deck, the app draws <b>2 cards</b> and keeps the worse one. If it is also strengthened, they cancel out and a single card is drawn.",
+        "strengthen": "%game.conditionIcon.strengthen% <b>Strengthen</b>: its attacks have advantage. When you tap the deck, the app draws <b>2 cards</b> and keeps the better one. If it is also muddled, they cancel out and a single card is drawn."
+      },
+      "drawManual": {
+        "muddle": "%game.conditionIcon.muddle% <b>Muddle</b>: its attacks have disadvantage. Draw with the deck's disadvantage button: it draws 2 cards and uses the worse one.",
+        "strengthen": "%game.conditionIcon.strengthen% <b>Strengthen</b>: its attacks have advantage. Draw with the deck's advantage button (the Strengthen icon): it draws 2 cards and uses the better one."
+      },
       "elementsInfuse": "If your card creates an element, tap it up here to mark it. If it asks you to consume an active one, tap it to spend it and apply the bonus.",
       "elementsWane": "Active elements drop one level: from strong to waning and from waning to inert. The app does it when you advance the round.",
       "endCharacterTurn": "When done, pick up the money or treasure in your hex. Then tap here to end <b>{0}</b>'s turn and move on to the next figure.",
@@ -2675,6 +2683,10 @@
     "amAdvantage": {
       "": "Attack Modifier Deck with Advantage/Disadvantage",
       "hint": "Add Advantage and Disadvantage buttons and keyboard shortcuts to Attack Modifier Decks."
+    },
+    "amAdvantageConditions": {
+      "": "Automatic Advantage/Disadvantage from conditions",
+      "hint": "When drawing, a strengthened attacker draws with advantage and a muddled one with disadvantage. For monsters the active standee is used or, if none is active, only when every standee has the condition."
     },
     "amAdvantageHouseRule": {
       "": "Advantage/Disadvantage Rolling House Rule",

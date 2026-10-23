@@ -328,6 +328,9 @@ export class AttackModifierDeckComponent implements OnInit, OnChanges {
     if (this.compact && this.fullscreen()) {
       this.openFullscreen(event);
     } else if (!this.disabled) {
+      if (!state && settingsManager.settings.amAdvantage && settingsManager.settings.amAdvantageConditions && !this.townGuard()) {
+        state = gameManager.attackModifierManager.conditionState(this.deck, this.character);
+      }
       if (!this.drawTimeout && this.deck.current < this.deck.cards.length - (this.queue === 0 ? 0 : 1)) {
         this.drawTimeout = setTimeout(
           () => {

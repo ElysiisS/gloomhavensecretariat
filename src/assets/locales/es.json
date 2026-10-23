@@ -1507,6 +1507,14 @@
       "damageCharacter": "Resta el daño al personaje atacado tocando su figura para ajustar su vida. Puede evitar el daño perdiendo una carta de la mano o dos de descartes.",
       "damageMonster": "Para quitar vida a un monstruo, toca su standee aquí: puedes restarle vida y ponerle estados. Si llega a 0, muere.",
       "draw": "Todos tienen iniciativa. Pulsa <b>\"%round.draw%\"</b>: se revelan las cartas de los monstruos y la app ordena a todos por iniciativa.",
+      "drawAuto": {
+        "muddle": "%game.conditionIcon.muddle% <b>Confusión</b>: sus ataques tienen desventaja. Al tocar el mazo, la app roba <b>2 cartas</b> y se queda con la peor. Si además está fortalecido, se anulan y se roba una sola.",
+        "strengthen": "%game.conditionIcon.strengthen% <b>Fortalecido</b>: sus ataques tienen ventaja. Al tocar el mazo, la app roba <b>2 cartas</b> y se queda con la mejor. Si además está confundido, se anulan y se roba una sola."
+      },
+      "drawManual": {
+        "muddle": "%game.conditionIcon.muddle% <b>Confusión</b>: sus ataques tienen desventaja. Roba con el botón de desventaja del mazo: saca 2 cartas y usa la peor.",
+        "strengthen": "%game.conditionIcon.strengthen% <b>Fortalecido</b>: sus ataques tienen ventaja. Roba con el botón de ventaja del mazo (el icono de Fortalecer): saca 2 cartas y usa la mejor."
+      },
       "elementsInfuse": "Si tu carta crea un elemento, tócalo aquí arriba para marcarlo. Si te pide consumir uno que está activo, tócalo para gastarlo y aplica el bonus.",
       "elementsWane": "Los elementos activos bajan un nivel: de fuerte a menguante y de menguante a inerte. La app lo hace sola al pasar de ronda.",
       "endCharacterTurn": "Al acabar, recoge el dinero o tesoro de tu casilla. Luego toca aquí para terminar el turno de <b>{0}</b> y pasar a la siguiente figura.",
@@ -2675,6 +2683,10 @@
     "amAdvantage": {
       "": "Mazo de Modificadores de Ataque con Ventaja/Desventaja",
       "hint": "Añade botones de Ventaja y Desventaja y atajos de teclado a los Mazos de Modificadores de Ataque."
+    },
+    "amAdvantageConditions": {
+      "": "Ventaja/Desventaja automática por estados",
+      "hint": "Al robar, si la figura que ataca está fortalecida se roba con ventaja y si está confundida con desventaja. Para los monstruos se usa el standee activo o, si no hay ninguno, solo cuando todos los standees tienen el estado."
     },
     "amAdvantageHouseRule": {
       "": "Racha con Ventaja/Desventaja Reglas de la casa",

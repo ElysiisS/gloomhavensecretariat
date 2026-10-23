@@ -22,6 +22,7 @@ export class Settings {
   alwaysLootApplyDialog = false;
   alwaysLootDeck: boolean = false;
   amAdvantage: boolean = true;
+  amAdvantageConditions: boolean = true;
   amAdvantageHouseRule: boolean = false;
   animations: boolean = true;
   animationSpeed: number = 1;

@@ -160,23 +160,22 @@ export class GuideComponent implements OnInit, OnDestroy {
       if (active.summons.some((summon) => gameManager.entityManager.isAlive(summon))) {
         steps.push({ label: 'guide.step.summons', target: () => visible('.summons-container', figureElement(active)) });
       }
+      const characterDeck = () =>
+        visible('.attack-modifier-button', figureElement(active)) ||
+        visible('ghs-attackmodifier-deck', figureElement(active)) ||
+        visible('ghs-footer .character-deck');
       if (active.longRest) {
         steps.push({ label: 'guide.step.longRest', args: [name], target: () => figureElement(active) });
+        this.conditionSteps(active.entityConditions, steps, () => figureElement(active));
       } else {
         steps.push({ label: 'guide.step.playCards' });
-        steps.push({
-          label: 'guide.step.characterAttack',
-          target: () =>
-            visible('.attack-modifier-button', figureElement(active)) ||
-            visible('ghs-attackmodifier-deck', figureElement(active)) ||
-            visible('ghs-footer .character-deck')
-        });
+        this.conditionSteps(active.entityConditions, steps, () => figureElement(active), characterDeck);
+        steps.push({ label: 'guide.step.characterAttack', target: characterDeck });
         if (monsters.some((monster) => monster.entities.some((entity) => gameManager.entityManager.isAlive(entity)))) {
           steps.push({ label: 'guide.step.damageMonster', target: () => visible('ghs-standee') });
         }
         steps.push({ label: 'guide.step.elementsInfuse', target: () => visible('ghs-header .elements') });
       }
-      this.conditionSteps(active.entityConditions, steps, () => figureElement(active));
       steps.push({
         label: 'guide.step.endCharacterTurn',
         args: [name],
@@ -192,17 +191,18 @@ export class GuideComponent implements OnInit, OnDestroy {
       });
       steps.push({ label: 'guide.step.monsterOrder', target: () => visible('.entities', figureElement(active)) });
       steps.push({ label: 'guide.step.monsterFocus', target: () => visible('.entities', figureElement(active)) });
-      steps.push({ label: 'guide.step.monsterAttack', target: () => visible('ghs-footer .monster-deck') });
+      const conditions: EntityCondition[] = [];
+      active.entities
+        .filter((entity) => gameManager.entityManager.isAlive(entity))
+        .forEach((entity) => conditions.push(...entity.entityConditions));
+      const monsterDeck = () => visible('ghs-footer .monster-deck');
+      this.conditionSteps(conditions, steps, () => visible('.entities', figureElement(active)), monsterDeck);
+      steps.push({ label: 'guide.step.monsterAttack', target: monsterDeck });
       steps.push({ label: 'guide.step.damageCharacter', target: () => visible('ghs-character') });
       const abilityCard = gameManager.monsterManager.getAbilityCard(active);
       if (abilityCard && abilityCard.shuffle) {
         steps.push({ label: 'guide.step.monsterShuffle', target: () => visible('ghs-monster-ability-card', figureElement(active)) });
       }
-      const conditions: EntityCondition[] = [];
-      active.entities
-        .filter((entity) => gameManager.entityManager.isAlive(entity))
-        .forEach((entity) => conditions.push(...entity.entityConditions));
-      this.conditionSteps(conditions, steps, () => visible('.entities', figureElement(active)));
       steps.push({
         label: 'guide.step.endMonsterTurn',
         args: [name],
@@ -244,7 +244,12 @@ export class GuideComponent implements OnInit, OnDestroy {
     this.position();
   }
 
-  conditionSteps(entityConditions: EntityCondition[], steps: GuideStep[], target: () => Element | null) {
+  conditionSteps(
+    entityConditions: EntityCondition[],
+    steps: GuideStep[],
+    target: () => Element | null,
+    deckTarget: (() => Element | null) | undefined = undefined
+  ) {
     const names: ConditionName[] = [];
     entityConditions
       .filter((condition) => !condition.expired && GuideConditions.includes(condition.name))
@@ -253,7 +258,14 @@ export class GuideComponent implements OnInit, OnDestroy {
           names.push(condition.name);
         }
       });
-    names.forEach((name) => steps.push({ label: 'guide.condition.' + name, target: target, warning: true }));
+    const automatic = settingsManager.settings.amAdvantage && settingsManager.settings.amAdvantageConditions;
+    names.forEach((name) => {
+      if (deckTarget && (name === ConditionName.strengthen || name === ConditionName.muddle)) {
+        steps.push({ label: 'guide.step.draw' + (automatic ? 'Auto.' : 'Manual.') + name, target: deckTarget, warning: true });
+      } else {
+        steps.push({ label: 'guide.condition.' + name, target: target, warning: true });
+      }
+    });
   }
 
   deckShuffle(cards: { shuffle: boolean }[], current: number): boolean {
