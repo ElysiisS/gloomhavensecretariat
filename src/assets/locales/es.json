@@ -1466,11 +1466,21 @@
       "stun": "%game.conditionIcon.stun% <b>Aturdir</b>: en su próximo turno no puede hacer acciones ni usar objetos. Un personaje aturdido aún debe jugar dos cartas (sin usarlas) o descansar. Se quita al final de ese turno.",
       "wound": "%game.conditionIcon.wound% <b>Herida</b>: sufre 1 de daño al empezar cada uno de sus turnos. Una curación la quita y además cura con normalidad."
     },
+    "focus": {
+      "invisible": "<b>{0}</b> es invisible: los monstruos no pueden elegirlo como objetivo y lo tratan como un obstáculo.",
+      "longRest": "<b>{0}</b> está descansando: en caso de empate, será el último en el que se fijen.",
+      "summons": "En caso de empate, las invocaciones van antes que su invocador, incluso la ronda en que aparecen."
+    },
     "menu": {
       "off": "Desactivar modo guía",
       "on": "Activar modo guía"
     },
     "minimize": "Minimizar",
+    "monsterType": {
+      "boss": "Jefe",
+      "elite": "Élite",
+      "normal": "Normal"
+    },
     "next": "Siguiente",
     "phase": {
       "cardSelection": {
@@ -1496,16 +1506,25 @@
     "round": {
       "intro": "Todas las rondas siguen los mismos pasos. Toca uno para ver qué hay que hacer; el paso actual aparece resaltado."
     },
+    "standee": {
+      "disarm": "<b>{0}</b> está desarmado: no ataca, pero sí se mueve y hace el resto de acciones.",
+      "immobilize": "<b>{0}</b> está inmovilizado: no se mueve, pero ataca si tiene a alguien a su alcance.",
+      "muddle": "<b>{0}</b> está confundido: en sus ataques usa el botón de desventaja del mazo.",
+      "strengthen": "<b>{0}</b> está fortalecido: en sus ataques usa el botón de ventaja del mazo.",
+      "stun": "<b>{0}</b> está aturdido: no hace nada este turno.",
+      "wound": "<b>{0}</b> está herido: sufre 1 de daño al empezar su turno.",
+      "woundAuto": "<b>{0}</b> está herido: la app le resta 1 de vida al empezar su turno."
+    },
     "step": {
       "addCharacters": "¡Bienvenido! Primero añade el personaje de cada jugador: pulsa aquí y elige vuestras clases.",
       "allExhausted": "Todos los personajes están agotados: el escenario se ha perdido. Termínalo desde el menú de escenario.",
-      "characterAttack": "Si atacas, roba un modificador por cada objetivo; puedes robarlo aquí. Suma tus bonus al ataque, aplica el modificador y resta el Escudo del objetivo.",
+      "characterAttack": "Si atacas, usa antes de robar los objetos que afecten al ataque. Roba un modificador por cada objetivo; puedes hacerlo aquí. Suma tus bonus, aplica el modificador y resta el Escudo del objetivo. Un ataque a distancia contra un enemigo adyacente tiene desventaja: usa el botón de desventaja del mazo.",
       "characterModifierShuffle": "{0} robó un ×2 o un Nulo: su mazo de modificadores se baraja con sus descartes.",
       "characterTurn": "Le toca a <b>{0}</b> (iniciativa {1}). La figura que actúa aparece resaltada y la lista está ordenada por iniciativa.",
-      "chooseCards": "Empieza la ronda: cada jugador mira su mano y elige en secreto <b>dos cartas</b>. Una será la <b>inicial</b>: el número del centro de esa carta es tu iniciativa. Cuanto más bajo, antes actúas.",
+      "chooseCards": "Empieza la ronda: cada jugador mira su mano y elige en secreto <b>dos cartas</b>. Una será la <b>inicial</b>: el número del centro de esa carta es tu iniciativa. Cuanto más bajo, antes actúas. Si no puedes jugar dos cartas ni descansar (te queda menos de dos en descartes), quedas agotado.",
       "chooseScenario": "Abre el menú desde aquí y pulsa \"Seleccionar Escenario\" para elegir la misión. La app colocará sus monstruos.",
       "damageCharacter": "Resta el daño al personaje atacado tocando su figura para ajustar su vida. Puede evitar el daño perdiendo una carta de la mano o dos de descartes.",
-      "damageMonster": "Para quitar vida a un monstruo, toca su standee aquí: puedes restarle vida y ponerle estados. Si llega a 0, muere.",
+      "damageMonster": "Para quitar vida a un monstruo, toca su standee aquí: puedes restarle vida y ponerle estados. Si llega a 0, muere y deja una ficha de dinero en su casilla, salvo si era invocado.",
       "draw": "Todos tienen iniciativa. Pulsa <b>\"%round.draw%\"</b>: se revelan las cartas de los monstruos y la app ordena a todos por iniciativa.",
       "drawAuto": {
         "muddle": "%game.conditionIcon.muddle% <b>Confusión</b>: sus ataques tienen desventaja. Al tocar el mazo, la app roba <b>2 cartas</b> y se queda con la peor. Si además está fortalecido, se anulan y se roba una sola.",
@@ -1515,30 +1534,46 @@
         "muddle": "%game.conditionIcon.muddle% <b>Confusión</b>: sus ataques tienen desventaja. Roba con el botón de desventaja del mazo: saca 2 cartas y usa la peor.",
         "strengthen": "%game.conditionIcon.strengthen% <b>Fortalecido</b>: sus ataques tienen ventaja. Roba con el botón de ventaja del mazo (el icono de Fortalecer): saca 2 cartas y usa la mejor."
       },
-      "elementsInfuse": "Si tu carta crea un elemento, tócalo aquí arriba para marcarlo. Si te pide consumir uno que está activo, tócalo para gastarlo y aplica el bonus.",
+      "elementsInfuse": "Si tu carta crea un elemento, tócalo aquí arriba para marcarlo; no se puede consumir en el mismo turno en que se crea. Si te pide consumir uno que está activo, tócalo para gastarlo y aplica el bonus.",
       "elementsWane": "Los elementos activos bajan un nivel: de fuerte a menguante y de menguante a inerte. La app lo hace sola al pasar de ronda.",
       "endCharacterTurn": "Al acabar, recoge el dinero o tesoro de tu casilla. Luego toca aquí para terminar el turno de <b>{0}</b> y pasar a la siguiente figura.",
       "endMonsterTurn": "Cuando todos los <b>{0}</b> hayan actuado, toca su retrato aquí para terminar su turno.",
       "firstRound": "Antes de la primera ronda, cada jugador roba dos objetivos de batalla y se queda uno en secreto. Leed también las reglas especiales del escenario en el Libro de Escenarios.",
       "initiative": "<b>{0}</b>: toca aquí y escribe la iniciativa de tu carta inicial. Si no puedes jugar dos cartas, o quieres recuperarlas, elige el descanso largo.",
+      "list": "{0}",
       "longRest": "<b>{0}</b> descansa: pierde una carta de tus descartes a tu elección, recupera el resto, cúrate 2 y renueva tus objetos gastados. Este turno no haces nada más.",
+      "longRestAuto": "<b>{0}</b> descansa: elige una carta de tus descartes y piérdela, y recupera el resto en tu mano. La app ya te cura 2 y renueva tus objetos gastados. Este turno no haces nada más.",
       "monsterAttack": "En cada ataque, toca aquí para robar un modificador del mazo de los monstruos y aplícalo al ataque.",
+      "monsterConsume": "Su carta consume {0} y ese elemento está disponible. Los monstruos siempre lo consumen si pueden, y el bonus vale para todos los de este tipo este turno. Márcalo como consumido aquí arriba.",
       "monsterFocus": "Cada uno elige objetivo: el enemigo al que llegue con menos movimiento (si empatan, el más cercano; si siguen empatados, el de menor iniciativa). Se mueve lo justo para atacarlo.",
+      "monsterHeal": "Su carta tiene Curar: cura al monstruo de su bando (o a sí mismo) dentro del alcance que haya perdido más vida.",
       "monsterModifierShuffle": "Del mazo de los monstruos salió un ×2 o un Nulo: se barajará con sus descartes al pasar de ronda.",
+      "monsterNoAttack": "Esta ronda su carta no tiene ataque: cada uno se acerca todo lo que pueda a su objetivo, como si fuera a atacar cuerpo a cuerpo, y hace el resto de acciones.",
       "monsterOrder": "Estos son sus standees. Mueve primero los de <b>élite</b> (dorados) y después los normales, cada grupo por número de menor a mayor.",
+      "monsterRanged": "Ataca a distancia: se mueve solo lo justo para tener alcance y línea de visión, y si está al lado de su objetivo se aleja para no atacar con desventaja.",
       "monsterShuffle": "Esta carta tiene el símbolo de barajar: al final de la ronda se barajará el mazo de este monstruo. La app lo hace sola.",
+      "monsterSummon": "Su carta invoca monstruos: se colocan en una casilla libre adyacente, lo más cerca posible de un enemigo. No actúan esta ronda ni dejan dinero al morir.",
       "monsterTurn": "Le toca a <b>{0}</b>. Esta es su carta de habilidad de esta ronda: todos los de este tipo hacen estas acciones, sumando los números a sus estadísticas.",
+      "move": "Al moverte puedes pasar por casillas de aliados, pero no de enemigos ni obstáculos, y no puedes acabar en una casilla ocupada. El terreno dificultoso cuesta 2 de movimiento. Una trampa de daño hace <b>{0}</b> y el terreno peligroso <b>{1}</b> por casilla; con Salto o Volar no te afectan.",
       "nextRound": "Pulsa <b>\"%round.next%\"</b> para empezar la siguiente ronda y volver a elegir cartas.",
+      "objective": "No queda ningún monstruo en pie. Si con eso se cumple el objetivo del escenario (o ya lo habéis cumplido de otra forma), el escenario termina al acabar esta ronda: al pulsar \"%round.next%\" elige terminarlo con éxito.",
+      "openDoor": "Si entras en una puerta cerrada, se abre la habitación siguiente: toca aquí para revelarla y la app añadirá sus monstruos y les robará carta. Los monstruos nuevos con iniciativa menor que la tuya actúan justo al acabar tu turno.",
       "otherTurn": "Le toca a un objetivo o aliado. Resuélvelo como diga el escenario y tócalo para terminar su turno.",
       "playCards": "Juega tus dos cartas en el orden que quieras: la <b>acción de arriba</b> de una y la <b>acción de abajo</b> de la otra. Si no te convienen, puedes usar Atacar 2 (arriba) o Mover 2 (abajo). Mueve tu figura en el tablero.",
-      "roundEnd": "Todas las figuras han actuado: es el <b>final de ronda</b>. Mira lo que toca antes de pasar a la siguiente.",
-      "scenarioEnd": "El escenario ha terminado. Apunta la experiencia (más el bonus del escenario si ganasteis), cambia las fichas de dinero por oro según el nivel, comprueba tu objetivo de batalla y recupera todas tus cartas y objetos.",
+      "poisonedCharacters": "Envenenados: <b>{0}</b>. Los ataques contra ellos hacen +1.",
+      "roundEnd": "Todas las figuras han actuado: es el <b>final de ronda</b>. Las cartas con bonus de ronda pasan a tu pila de descartes o de perdidas. Mira lo que toca antes de pasar a la siguiente.",
+      "scenarioEnd": "El escenario ha terminado. Cada ficha de dinero vale <b>{0}</b> de oro. Si ganasteis, cada personaje, también los agotados, gana <b>{1}</b> de experiencia extra y comprueba su objetivo de batalla. Ganes o pierdas, te quedas la experiencia y el oro; se recuperan las cartas, los objetos y la vida, y se quitan de los mazos las Bendiciones, Maldiciones y cartas añadidas por el escenario.",
       "shortRest": "Quien tenga dos o más cartas en descartes puede hacer un <b>descanso corto</b>: baraja sus descartes, pierde una al azar y recupera las demás. Si no le gusta la perdida, puede sufrir 1 de daño para perder otra al azar.",
       "summons": "Primero actúan tus invocaciones, que están aquí. Siguen las reglas de los monstruos: eligen objetivo, se mueven y atacan solas."
     },
     "tab": {
       "round": "La ronda",
       "rules": "Reglas"
+    },
+    "target": {
+      "poison": "<b>{0}</b> envenenados: {1}. Tus ataques contra ellos hacen +1.",
+      "retaliate": "<b>{0}</b>: Represalia {1}. Si le atacas desde una casilla adyacente, sufres {1} de daño después de cada ataque.",
+      "shield": "<b>{0}</b>: Escudo {1}. Resta {1} a cada ataque contra él."
     },
     "topic": {
       "attack": {

@@ -4,11 +4,15 @@ import { GameManager, gameManager } from 'src/app/game/businesslogic/GameManager
 import { GhsManager } from 'src/app/game/businesslogic/GhsManager';
 import { SettingsManager, settingsManager } from 'src/app/game/businesslogic/SettingsManager';
 import { Character } from 'src/app/game/model/Character';
+import { Action, ActionType, ActionValueType } from 'src/app/game/model/data/Action';
 import { ConditionName, EntityCondition } from 'src/app/game/model/data/Condition';
 import { ElementState } from 'src/app/game/model/data/Element';
+import { MonsterType } from 'src/app/game/model/data/MonsterType';
+import { EntityValueFunction } from 'src/app/game/model/Entity';
 import { Figure } from 'src/app/game/model/Figure';
 import { GameState } from 'src/app/game/model/Game';
 import { Monster } from 'src/app/game/model/Monster';
+import { MonsterEntity } from 'src/app/game/model/MonsterEntity';
 import { GhsLabelDirective } from 'src/app/ui/helper/label';
 
 export type GuidePhase = 'setup' | 'cardSelection' | 'turns' | 'roundEnd' | 'scenarioEnd';
@@ -121,7 +125,7 @@ export class GuideComponent implements OnInit, OnDestroy {
 
     if (game.finish) {
       this.phase = 'scenarioEnd';
-      steps.push({ label: 'guide.step.scenarioEnd' });
+      steps.push({ label: 'guide.step.scenarioEnd', args: [gameManager.levelManager.loot(), gameManager.levelManager.experience()] });
     } else if (characters.length === 0) {
       this.phase = 'setup';
       steps.push({ label: 'guide.step.addCharacters', target: () => visible('.add-characters') || visible('ghs-header .menu-button') });
@@ -165,12 +169,24 @@ export class GuideComponent implements OnInit, OnDestroy {
         visible('ghs-attackmodifier-deck', figureElement(active)) ||
         visible('ghs-footer .character-deck');
       if (active.longRest) {
-        steps.push({ label: 'guide.step.longRest', args: [name], target: () => figureElement(active) });
+        steps.push({
+          label: settingsManager.settings.applyLongRest ? 'guide.step.longRestAuto' : 'guide.step.longRest',
+          args: [name],
+          target: () => figureElement(active)
+        });
         this.conditionSteps(active.entityConditions, steps, () => figureElement(active));
       } else {
-        steps.push({ label: 'guide.step.playCards' });
         this.conditionSteps(active.entityConditions, steps, () => figureElement(active), characterDeck);
+        steps.push({ label: 'guide.step.playCards' });
+        steps.push({ label: 'guide.step.move', args: [gameManager.levelManager.trap(), gameManager.levelManager.terrain()] });
+        if (visible('ghs-footer .room')) {
+          steps.push({ label: 'guide.step.openDoor', target: () => visible('ghs-footer .room') });
+        }
         steps.push({ label: 'guide.step.characterAttack', target: characterDeck });
+        const targets = this.targetNotes(monsters, active);
+        if (targets.length > 0) {
+          steps.push({ label: 'guide.step.list', args: [targets.join('<br>')], target: () => visible('ghs-standee'), warning: true });
+        }
         if (monsters.some((monster) => monster.entities.some((entity) => gameManager.entityManager.isAlive(entity)))) {
           steps.push({ label: 'guide.step.damageMonster', target: () => visible('ghs-standee') });
         }
@@ -184,24 +200,78 @@ export class GuideComponent implements OnInit, OnDestroy {
     } else if (active instanceof Monster) {
       this.phase = 'turns';
       const name = settingsManager.getLabel('data.monster.' + active.name);
-      steps.push({
-        label: 'guide.step.monsterTurn',
-        args: [name],
-        target: () => visible('ghs-monster-ability-card', figureElement(active)) || figureElement(active)
-      });
-      steps.push({ label: 'guide.step.monsterOrder', target: () => visible('.entities', figureElement(active)) });
-      steps.push({ label: 'guide.step.monsterFocus', target: () => visible('.entities', figureElement(active)) });
+      const abilityTarget = () => visible('ghs-monster-ability-card', figureElement(active)) || figureElement(active);
+      const entitiesTarget = () => visible('.entities', figureElement(active));
+      const monsterDeck = () => visible('ghs-footer .monster-deck');
+      const abilityCard = gameManager.monsterManager.getAbilityCard(active);
+      const actions = abilityCard ? this.flatActions(abilityCard.actions) : [];
+      const attacks = actions.some((action) => action.type === ActionType.attack);
+      steps.push({ label: 'guide.step.monsterTurn', args: [name], target: abilityTarget });
+      if (abilityCard && !attacks && actions.some((action) => action.type === ActionType.move)) {
+        steps.push({ label: 'guide.step.monsterNoAttack', target: abilityTarget });
+      }
+      if (actions.some((action) => action.type === ActionType.heal)) {
+        steps.push({ label: 'guide.step.monsterHeal', target: abilityTarget });
+      }
+      if (actions.some((action) => action.type === ActionType.summon || action.type === ActionType.spawn)) {
+        steps.push({ label: 'guide.step.monsterSummon', target: abilityTarget });
+      }
+      actions
+        .filter((action) => action.type === ActionType.element && action.valueType === ActionValueType.minus)
+        .forEach((action) => {
+          const elements = ('' + action.value).split(':');
+          const available = elements.every((type) =>
+            game.elementBoard.some(
+              (element) =>
+                (element.type === type || type === 'wild') &&
+                (element.state === ElementState.strong || element.state === ElementState.waning)
+            )
+          );
+          if (available) {
+            steps.push({
+              label: 'guide.step.monsterConsume',
+              args: [elements.map((type) => '%game.element.' + type + '%').join(' ')],
+              target: () => visible('ghs-header .elements')
+            });
+          }
+        });
+      steps.push({ label: 'guide.step.monsterOrder', target: entitiesTarget });
+      const standees = this.standeeNotes(active);
+      if (standees.length > 0) {
+        steps.push({ label: 'guide.step.list', args: [standees.join('<br>')], target: entitiesTarget, warning: true });
+      }
+      steps.push({ label: 'guide.step.monsterFocus', target: entitiesTarget });
+      const focus = this.focusNotes(characters);
+      if (focus.length > 0) {
+        steps.push({ label: 'guide.step.list', args: [focus.join('<br>')], target: () => visible('ghs-character'), warning: true });
+      }
+      if (attacks && this.ranged(active)) {
+        steps.push({ label: 'guide.step.monsterRanged', target: entitiesTarget });
+      }
       const conditions: EntityCondition[] = [];
       active.entities
         .filter((entity) => gameManager.entityManager.isAlive(entity))
         .forEach((entity) => conditions.push(...entity.entityConditions));
-      const monsterDeck = () => visible('ghs-footer .monster-deck');
-      this.conditionSteps(conditions, steps, () => visible('.entities', figureElement(active)), monsterDeck);
-      steps.push({ label: 'guide.step.monsterAttack', target: monsterDeck });
-      steps.push({ label: 'guide.step.damageCharacter', target: () => visible('ghs-character') });
-      const abilityCard = gameManager.monsterManager.getAbilityCard(active);
+      this.deckConditionSteps(conditions, steps, monsterDeck);
+      if (attacks || !abilityCard) {
+        steps.push({ label: 'guide.step.monsterAttack', target: monsterDeck });
+        const poisoned = characters.filter(
+          (character) =>
+            gameManager.entityManager.isAlive(character) &&
+            character.entityConditions.some((condition) => condition.name === ConditionName.poison && !condition.expired)
+        );
+        if (poisoned.length > 0) {
+          steps.push({
+            label: 'guide.step.poisonedCharacters',
+            args: [poisoned.map((character) => gameManager.characterManager.characterName(character)).join(', ')],
+            target: () => figureElement(poisoned[0]),
+            warning: true
+          });
+        }
+        steps.push({ label: 'guide.step.damageCharacter', target: () => visible('ghs-character') });
+      }
       if (abilityCard && abilityCard.shuffle) {
-        steps.push({ label: 'guide.step.monsterShuffle', target: () => visible('ghs-monster-ability-card', figureElement(active)) });
+        steps.push({ label: 'guide.step.monsterShuffle', target: abilityTarget });
       }
       steps.push({
         label: 'guide.step.endMonsterTurn',
@@ -214,6 +284,9 @@ export class GuideComponent implements OnInit, OnDestroy {
     } else {
       this.phase = 'roundEnd';
       steps.push({ label: 'guide.step.roundEnd' });
+      if (game.scenario && monsters.every((monster) => this.aliveEntities(monster).length === 0)) {
+        steps.push({ label: 'guide.step.objective', target: () => visible('ghs-footer .round-container') });
+      }
       if (game.elementBoard.some((element) => element.state === ElementState.strong || element.state === ElementState.waning)) {
         steps.push({ label: 'guide.step.elementsWane', target: () => visible('ghs-header .elements') });
       }
@@ -266,6 +339,147 @@ export class GuideComponent implements OnInit, OnDestroy {
         steps.push({ label: 'guide.condition.' + name, target: target, warning: true });
       }
     });
+  }
+
+  // strengthen/muddle shared by every standee of the group make the monster deck draw two cards
+  deckConditionSteps(entityConditions: EntityCondition[], steps: GuideStep[], deckTarget: () => Element | null) {
+    const automatic = settingsManager.settings.amAdvantage && settingsManager.settings.amAdvantageConditions;
+    const entities = gameManager.game.figures
+      .filter((figure) => figure instanceof Monster && figure.active)
+      .flatMap((figure) => (figure as Monster).entities.filter((entity) => gameManager.entityManager.isAlive(entity)));
+    [ConditionName.strengthen, ConditionName.muddle]
+      .filter(
+        (name) =>
+          entityConditions.some((condition) => condition.name === name && !condition.expired) &&
+          entities.every((entity) => entity.entityConditions.some((condition) => condition.name === name && !condition.expired))
+      )
+      .forEach((name) =>
+        steps.push({ label: 'guide.step.draw' + (automatic ? 'Auto.' : 'Manual.') + name, target: deckTarget, warning: true })
+      );
+  }
+
+  flatActions(actions: Action[] | undefined): Action[] {
+    const result: Action[] = [];
+    (actions || []).forEach((action) => {
+      result.push(action);
+      result.push(...this.flatActions(action.subActions));
+    });
+    return result;
+  }
+
+  standeeName(monster: Monster, entity: MonsterEntity): string {
+    // standees without an assigned number have a negative one
+    return settingsManager.getLabel('guide.monsterType.' + entity.type) + (entity.number > 0 ? ' ' + entity.number : '');
+  }
+
+  aliveEntities(monster: Monster): MonsterEntity[] {
+    const order = [MonsterType.boss, MonsterType.elite, MonsterType.normal];
+    return monster.entities
+      .filter((entity) => gameManager.entityManager.isAlive(entity))
+      .sort((a, b) => order.indexOf(a.type) - order.indexOf(b.type) || a.number - b.number);
+  }
+
+  hasCondition(entity: { entityConditions: EntityCondition[] }, name: ConditionName): boolean {
+    return entity.entityConditions.some((condition) => condition.name === name && !condition.expired);
+  }
+
+  // what each standee of the acting monster can or cannot do this turn because of its conditions
+  standeeNotes(monster: Monster): string[] {
+    const notes: string[] = [];
+    const entities = this.aliveEntities(monster);
+    entities.forEach((entity) => {
+      const standee = this.standeeName(monster, entity);
+      if (this.hasCondition(entity, ConditionName.stun)) {
+        notes.push(settingsManager.getLabel('guide.standee.stun', [standee]));
+        return;
+      }
+      if (this.hasCondition(entity, ConditionName.wound)) {
+        notes.push(
+          settingsManager.getLabel(settingsManager.settings.applyConditions ? 'guide.standee.woundAuto' : 'guide.standee.wound', [standee])
+        );
+      }
+      [ConditionName.immobilize, ConditionName.disarm].forEach((name) => {
+        if (this.hasCondition(entity, name)) {
+          notes.push(settingsManager.getLabel('guide.standee.' + name, [standee]));
+        }
+      });
+      // a condition only some standees have needs the manual advantage/disadvantage buttons
+      [ConditionName.strengthen, ConditionName.muddle].forEach((name) => {
+        if (this.hasCondition(entity, name) && !entities.every((other) => this.hasCondition(other, name))) {
+          notes.push(settingsManager.getLabel('guide.standee.' + name, [standee]));
+        }
+      });
+    });
+    return notes;
+  }
+
+  // monster focus rules that depend on the characters
+  focusNotes(characters: Character[]): string[] {
+    const notes: string[] = [];
+    const alive = characters.filter(
+      (character) => gameManager.entityManager.isAlive(character) && !character.exhausted && !character.absent
+    );
+    alive
+      .filter((character) => this.hasCondition(character, ConditionName.invisible))
+      .forEach((character) =>
+        notes.push(settingsManager.getLabel('guide.focus.invisible', [gameManager.characterManager.characterName(character)]))
+      );
+    alive
+      .filter((character) => character.longRest)
+      .forEach((character) =>
+        notes.push(settingsManager.getLabel('guide.focus.longRest', [gameManager.characterManager.characterName(character)]))
+      );
+    if (alive.some((character) => character.summons.some((summon) => gameManager.entityManager.isAlive(summon)))) {
+      notes.push(settingsManager.getLabel('guide.focus.summons'));
+    }
+    return notes;
+  }
+
+  ranged(monster: Monster): boolean {
+    return this.aliveEntities(monster).some(
+      (entity) => EntityValueFunction(gameManager.monsterManager.getStat(monster, entity.type).range) > 0
+    );
+  }
+
+  // shield, retaliate and poison of the enemies the character may attack
+  targetNotes(monsters: Monster[], active: Character): string[] {
+    const notes: string[] = [];
+    const figures = gameManager.game.figures;
+    monsters
+      .filter((monster) => !monster.isAlly && !monster.isAllied)
+      .forEach((monster) => {
+        const entities = this.aliveEntities(monster);
+        if (entities.length === 0) {
+          return;
+        }
+        const name = settingsManager.getLabel('data.monster.' + monster.name);
+        // bonuses of the ability card only count once the monster has acted this round
+        const acted = figures.indexOf(monster) < figures.indexOf(active);
+        const abilityCard = acted ? gameManager.monsterManager.getAbilityCard(monster) : undefined;
+        const types = entities.map((entity) => entity.type).filter((type, index, self) => self.indexOf(type) === index);
+        types.forEach((type) => {
+          const stat = gameManager.monsterManager.getStat(monster, type);
+          const bonus = [...(stat.actions || []), ...(abilityCard ? abilityCard.actions : [])];
+          const sum = (actionType: ActionType) =>
+            bonus.filter((action) => action.type === actionType).reduce((total, action) => total + EntityValueFunction(action.value), 0);
+          const shield = sum(ActionType.shield);
+          const retaliate = sum(ActionType.retaliate);
+          const label = name + (types.length > 1 ? ' (' + settingsManager.getLabel('guide.monsterType.' + type) + ')' : '');
+          if (shield > 0) {
+            notes.push(settingsManager.getLabel('guide.target.shield', [label, '' + shield]));
+          }
+          if (retaliate > 0) {
+            notes.push(settingsManager.getLabel('guide.target.retaliate', [label, '' + retaliate]));
+          }
+        });
+        const poisoned = entities.filter((entity) => this.hasCondition(entity, ConditionName.poison));
+        if (poisoned.length > 0) {
+          notes.push(
+            settingsManager.getLabel('guide.target.poison', [name, poisoned.map((entity) => this.standeeName(monster, entity)).join(', ')])
+          );
+        }
+      });
+    return notes;
   }
 
   deckShuffle(cards: { shuffle: boolean }[], current: number): boolean {

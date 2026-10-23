@@ -1466,11 +1466,21 @@
       "stun": "%game.conditionIcon.stun% <b>Stun</b>: cannot perform actions or use items during its next turn. A stunned character still has to play two cards (without using them) or rest. Removed at the end of that turn.",
       "wound": "%game.conditionIcon.wound% <b>Wound</b>: suffers 1 damage at the start of each of its turns. A heal removes it and also heals normally."
     },
+    "focus": {
+      "invisible": "<b>{0}</b> is invisible: monsters cannot target them and treat them as an obstacle.",
+      "longRest": "<b>{0}</b> is resting: on a tie, they are the last one monsters focus on.",
+      "summons": "On a tie, summons come before their summoner, even in the round they appear."
+    },
     "menu": {
       "off": "Turn off guide mode",
       "on": "Turn on guide mode"
     },
     "minimize": "Minimize",
+    "monsterType": {
+      "boss": "Boss",
+      "elite": "Elite",
+      "normal": "Normal"
+    },
     "next": "Next",
     "phase": {
       "cardSelection": {
@@ -1496,16 +1506,25 @@
     "round": {
       "intro": "Every round follows the same steps. Tap one to see what to do; the current step is highlighted."
     },
+    "standee": {
+      "disarm": "<b>{0}</b> is disarmed: it does not attack, but still moves and performs other actions.",
+      "immobilize": "<b>{0}</b> is immobilized: it does not move, but attacks if someone is in range.",
+      "muddle": "<b>{0}</b> is muddled: use the deck's disadvantage button for its attacks.",
+      "strengthen": "<b>{0}</b> is strengthened: use the deck's advantage button for its attacks.",
+      "stun": "<b>{0}</b> is stunned: it does nothing this turn.",
+      "wound": "<b>{0}</b> is wounded: it suffers 1 damage at the start of its turn.",
+      "woundAuto": "<b>{0}</b> is wounded: the app subtracts 1 hit point at the start of its turn."
+    },
     "step": {
       "addCharacters": "Welcome! First add each player's character: tap here and pick your classes.",
       "allExhausted": "Every character is exhausted: the scenario is lost. Finish it from the scenario menu.",
-      "characterAttack": "If you attack, draw one modifier per target; you can draw it here. Add your bonuses to the attack, apply the modifier and subtract the target's Shield.",
+      "characterAttack": "If you attack, use any items that affect the attack before drawing. Draw one modifier per target; you can do it here. Add your bonuses, apply the modifier and subtract the target's Shield. A ranged attack against an adjacent enemy has disadvantage: use the deck's disadvantage button.",
       "characterModifierShuffle": "{0} drew a ×2 or a Null: their modifier deck is shuffled with its discards.",
       "characterTurn": "It is <b>{0}</b>'s turn (initiative {1}). The acting figure is highlighted and the list is ordered by initiative.",
-      "chooseCards": "The round begins: each player looks at their hand and secretly picks <b>two cards</b>. One of them leads: the number in the middle of that card is your initiative. The lower, the sooner you act.",
+      "chooseCards": "The round begins: each player looks at their hand and secretly picks <b>two cards</b>. One of them leads: the number in the middle of that card is your initiative. The lower, the sooner you act. If you can neither play two cards nor rest (fewer than two discarded cards), you are exhausted.",
       "chooseScenario": "Open the menu here and tap \"Select Scenario\" to pick the mission. The app will set up its monsters.",
       "damageCharacter": "Subtract the damage from the attacked character by tapping their figure to adjust their hit points. They may avoid the damage by losing one card from hand or two from the discard pile.",
-      "damageMonster": "To damage a monster, tap its standee here: you can lower its hit points and add conditions. At 0 it dies.",
+      "damageMonster": "To damage a monster, tap its standee here: you can lower its hit points and add conditions. At 0 it dies and drops a money token in its hex, unless it was summoned.",
       "draw": "Everyone has an initiative. Press <b>\"%round.draw%\"</b>: the monster cards are revealed and the app orders everyone by initiative.",
       "drawAuto": {
         "muddle": "%game.conditionIcon.muddle% <b>Muddle</b>: its attacks have disadvantage. When you tap the deck, the app draws <b>2 cards</b> and keeps the worse one. If it is also strengthened, they cancel out and a single card is drawn.",
@@ -1515,30 +1534,46 @@
         "muddle": "%game.conditionIcon.muddle% <b>Muddle</b>: its attacks have disadvantage. Draw with the deck's disadvantage button: it draws 2 cards and uses the worse one.",
         "strengthen": "%game.conditionIcon.strengthen% <b>Strengthen</b>: its attacks have advantage. Draw with the deck's advantage button (the Strengthen icon): it draws 2 cards and uses the better one."
       },
-      "elementsInfuse": "If your card creates an element, tap it up here to mark it. If it asks you to consume an active one, tap it to spend it and apply the bonus.",
+      "elementsInfuse": "If your card creates an element, tap it up here to mark it; it cannot be consumed in the same turn it was created. If it asks you to consume an active one, tap it to spend it and apply the bonus.",
       "elementsWane": "Active elements drop one level: from strong to waning and from waning to inert. The app does it when you advance the round.",
       "endCharacterTurn": "When done, pick up the money or treasure in your hex. Then tap here to end <b>{0}</b>'s turn and move on to the next figure.",
       "endMonsterTurn": "When every <b>{0}</b> has acted, tap its portrait here to end its turn.",
       "firstRound": "Before the first round, each player draws two battle goals and secretly keeps one. Also read the scenario's special rules in the Scenario Book.",
       "initiative": "<b>{0}</b>: tap here and enter the initiative of your leading card. If you cannot play two cards, or want them back, choose a long rest.",
+      "list": "{0}",
       "longRest": "<b>{0}</b> rests: lose one card of your choice from your discard pile, return the rest, heal 2 and refresh your spent items. You do nothing else this turn.",
+      "longRestAuto": "<b>{0}</b> rests: choose one card from your discard pile and lose it, and return the rest to your hand. The app already heals you 2 and refreshes your spent items. You do nothing else this turn.",
       "monsterAttack": "For each attack, tap here to draw a card from the monster modifier deck and apply it to the attack.",
+      "monsterConsume": "Its card consumes {0} and that element is available. Monsters always consume when they can, and the bonus applies to every monster of this type this turn. Mark it as consumed up here.",
       "monsterFocus": "Each one picks a target: the enemy it can reach with the least movement (on a tie, the closest; if still tied, the lowest initiative). It moves just enough to attack it.",
+      "monsterHeal": "Its card has Heal: it heals the monster on its side (or itself) within range that has lost the most hit points.",
       "monsterModifierShuffle": "A ×2 or Null came out of the monster deck: it will be shuffled with its discards when the round advances.",
+      "monsterNoAttack": "Its card has no attack this round: each one moves as close as it can to its target, as if it had a melee attack, and performs the other actions.",
       "monsterOrder": "These are its standees. Move the <b>elites</b> (gold) first and then the normals, each group in ascending number.",
+      "monsterRanged": "It attacks at range: it only moves as far as needed to have range and line of sight, and if it is next to its target it backs away to avoid attacking with disadvantage.",
       "monsterShuffle": "This card shows the shuffle symbol: this monster's deck will be shuffled at the end of the round. The app does it for you.",
+      "monsterSummon": "Its card summons monsters: they are placed in a free adjacent hex, as close as possible to an enemy. They do not act this round and drop no money when they die.",
       "monsterTurn": "It is <b>{0}</b>'s turn. This is its ability card for this round: every monster of this type performs these actions, adding the numbers to its stats.",
+      "move": "When moving you may pass through allies but not enemies or obstacles, and you cannot end in an occupied hex. Difficult terrain costs 2 movement. A damage trap deals <b>{0}</b> and hazardous terrain <b>{1}</b> per hex; Jump and Flying ignore them.",
       "nextRound": "Press <b>\"%round.next%\"</b> to start the next round and pick cards again.",
+      "objective": "No monster is left standing. If that meets the scenario goal (or you met it some other way), the scenario ends after this round: when you press \"%round.next%\" choose to finish it as a success.",
+      "openDoor": "If you step onto a closed door, the next room opens: tap here to reveal it and the app adds its monsters and draws their cards. New monsters with a lower initiative than yours act right after your turn.",
       "otherTurn": "It is an objective's or ally's turn. Resolve it as the scenario says and tap it to end its turn.",
       "playCards": "Play your two cards in any order: the <b>top action</b> of one and the <b>bottom action</b> of the other. If they do not suit you, you may use Attack 2 (top) or Move 2 (bottom). Move your figure on the board.",
-      "roundEnd": "Every figure has acted: it is the <b>end of the round</b>. Check what happens before moving on.",
-      "scenarioEnd": "The scenario is over. Note your experience (plus the scenario bonus if you won), convert money tokens to gold based on the level, check your battle goal and recover all your cards and items.",
+      "poisonedCharacters": "Poisoned: <b>{0}</b>. Attacks against them get +1.",
+      "roundEnd": "Every figure has acted: it is the <b>end of the round</b>. Cards with round bonuses go to your discard or lost pile. Check what happens before moving on.",
+      "scenarioEnd": "The scenario is over. Each money token is worth <b>{0}</b> gold. If you won, every character, exhausted ones included, gains <b>{1}</b> bonus experience and checks their battle goal. Win or lose, you keep experience and gold; cards, items and hit points are recovered, and Bless, Curse and scenario cards are removed from the decks.",
       "shortRest": "Anyone with two or more discarded cards may take a <b>short rest</b>: shuffle the discards, lose one at random and return the rest. If they dislike the lost card, they can suffer 1 damage to lose another random one instead.",
       "summons": "Your summons, shown here, act first. They follow monster rules: they pick a target, move and attack on their own."
     },
     "tab": {
       "round": "The round",
       "rules": "Rules"
+    },
+    "target": {
+      "poison": "<b>{0}</b> poisoned: {1}. Your attacks against them get +1.",
+      "retaliate": "<b>{0}</b>: Retaliate {1}. If you attack it from an adjacent hex, you suffer {1} damage after each attack.",
+      "shield": "<b>{0}</b>: Shield {1}. Subtract {1} from each attack against it."
     },
     "topic": {
       "attack": {
